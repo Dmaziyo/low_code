@@ -77,13 +77,11 @@ export default {
   //   利用element现有的组件以及自定义组件来实现
   editorConfig: {
     propConfig: {
-      name: {
+      text: {
         type: 'el-input',
         label: '按钮文字',
         require: true,
-        widgetProps: {
-          value: '按钮'
-        }
+        defaultPropValue: '按钮'
       },
       fontSize: {
         type: 'el-input-number',
@@ -94,9 +92,7 @@ export default {
           min: 12,
           max: 144
         },
-        widgetProps: {
-          value: 14
-        }
+        defaultPropValue: 14
       },
       color: {
         type: 'el-input',
@@ -105,9 +101,7 @@ export default {
           type: 'color'
         },
         require: true,
-        widgetProps: {
-          value: ''
-        }
+        defaultPropValue: 'black'
       },
       backgroundColor: {
         type: 'el-input',
@@ -116,9 +110,7 @@ export default {
           type: 'color'
         },
         require: true,
-        widgetProps: {
-          value: ''
-        }
+        defaultPropValue: '#ffffff'
       },
       borderColor: {
         type: 'el-input',
@@ -127,9 +119,7 @@ export default {
           type: 'color'
         },
         require: true,
-        widgetProps: {
-          value: '#ced4a'
-        }
+        defaultPropValue: '#eeeeee'
       },
       borderWidth: {
         type: 'el-input-number',
@@ -140,9 +130,7 @@ export default {
           min: 1,
           max: 10
         },
-        widgetProps: {
-          value: 1
-        }
+        defaultPropValue: 1
       },
       borderRadius: {
         type: 'el-input-number',
@@ -153,9 +141,7 @@ export default {
           min: 0,
           max: 10
         },
-        widgetProps: {
-          value: 0
-        }
+        defaultPropValue: 0
       },
       lineHeight: {
         type: 'el-input-number',
@@ -166,17 +152,13 @@ export default {
           min: 0.1,
           max: 10
         },
-        widgetProps: {
-          value: 1
-        }
+        defaultPropValue: 1
       },
       textAlign: {
         type: 'lbs-text-align',
         label: '文字对齐',
         require: true,
-        widgetProps: {
-          value: 'center'
-        }
+        defaultPropValue: 'center'
       }
     },
     components: {

@@ -5,14 +5,8 @@
       v-for="(element,index) in elements"
       :key="index"
       :is="element.name"
-      :style="{top:'100px',
-      fontSize:'16px',
-      textAlign:'center',
-      color:'orange',
-      width:'100px',
-      height:'30px',
-      position:'absolute'}"
-      @click="parentD.setCurrentEditingElement.bind(this, element)"
+      :style="element.getStyle()"
+      @click.native="parentD.setCurrentEditingElement(element)"
     ></component>
   </div>
 </template>

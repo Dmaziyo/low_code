@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="el-col-6">
-        <editor-panel></editor-panel>
+        <editor-panel :editing-element="editingElement"></editor-panel>
       </div>
     </div>
   </div>
@@ -32,71 +32,103 @@ const PluginList = [
     name: 'lbp-button'
   }
 ]
-// 组件模型,没有怎么懂
+const defaultProps = {
+  top: 100,
+  left: 100,
+  width: 100,
+  height: 40,
+  zindex: 1,
+  textAlign: 'center',
+  color: '#000000',
+  backgroundColor: '#ffffff',
+  fontSize: 14
+}
+/**
+ * 组件模型
+ * getStyle:获取所有样式
+ * getClass:获取所有类
+ * getData:获取数据文本
+ */
 class Element {
   constructor(ele) {
-    const { defaultPropsValue = {} } = ele
-    this.type = ele.name
+    // 这个this是新建立的对象了
     this.name = ele.name
-    this.zindex = ele.zindex || defaultPropsValue.zindex || 1
-    this.style = {
-      top: ele.top || defaultPropsValue.top || 100,
-      left: ele.left || defaultPropsValue.left || 100,
-      ...defaultPropsValue
+    this.editorConfig = ele.editorConfig || {}
+    this.init()
+  }
+  getStyle() {
+    return {
+      top: `${this.top}px`,
+      left: `${this.left}px`,
+      width: `${this.width}px`,
+      height: `${this.height}px`,
+      fontSize: `${this.fontSize}px`,
+      color: this.color,
+      backgroundColor: this.backgroundColor,
+      borderWidth: `${this.borderWidth}px`,
+      borderRadius: `${this.borderRadius}px`,
+      textAlign: this.textAlign
     }
   }
-  getStyle() {}
   getClass() {}
   getData() {}
+  // 初始化默认样式 & 默认编辑器样式
+  init() {
+    // init defaultStyle
+    Object.keys(defaultProps).forEach(key => {
+      this[key] = defaultProps[key]
+    })
+    // 可能会覆盖上面的初始化，将editor的属性和组件样式绑定
+    const propConf = this.editorConfig.propConfig
+    Object.keys(propConf).forEach(key => {
+      this[key] = propConf[key].defaultPropValue
+    })
+  }
 }
+
 import EditCanvas from '@/components/Canvas'
 import PluginListPanel from '@/components/PluginListPanel'
+import EditorPanel from '@/components/EditorPanel.vue'
 import Vue from 'vue'
 export default {
   name: 'Editor',
   components: {
     //   这个是右边编辑栏的
-    EditorPanel: {
-      template: `<div>Editor Panel</div>`
-    },
+    EditorPanel,
     EditCanvas,
     PluginListPanel
   },
-  data: () => ({
-    pages: [],
-    elements: []
-  }),
+  data() {
+    return {
+      pages: [],
+      elements: [],
+      editingElement: null
+    }
+  },
   computed: {
     visiblePluginList() {
       return PluginList.filter(p => p.visible)
     }
   },
   methods: {
+    // 获取组件编辑器配置
+    getEditorConfig(pluginName) {
+      return this.$options.components[pluginName].editorConfig
+    },
     /**
      * 复制插件的基本数据至组件树中，即elements
      */
     clone({ name }) {
-      console.log('响应成功', name)
       const zindex = this.elements.length + 1
       // 获取编辑器配置
-      const defaultPropsValue = this.getPropsDefaultValue(name)
-      this.elements.push(new Element({ name, zindex, defaultPropsValue }))
+      const editorConfig = this.getEditorConfig(name)
+      this.elements.push(new Element({ name, zindex, editorConfig }))
     },
     setCurrentEditingElement(element) {
-      console.log(element)
+      this.editingElement = element
     },
-    // 这个默认值是从编辑栏获取后然后再设置到组件中去
-    getPropsDefaultValue(pluginName) {
-      const defaultPropsValue = {}
-      // 获取局部注册Component
-      const component = this.$options.components[pluginName]
-      // 获取组件编辑栏配置
-      const propConfig = component.editorConfig.propConfig
-      Object.keys(propConfig).forEach(key => {
-        defaultPropsValue[key] = propConfig[key].widgetProps.value
-      })
-      return defaultPropsValue
-    },
+
+    // 注册组件
     mixinPlugins2Editor() {
       PluginList.forEach(plugin => {
         Vue.component(plugin.name, plugin.component)
