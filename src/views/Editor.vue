@@ -51,6 +51,7 @@ class Element {
 }
 import EditCanvas from '@/components/Canvas'
 import PluginListPanel from '@/components/PluginListPanel'
+import Vue from 'vue'
 export default {
   name: 'Editor',
   components: {
@@ -77,6 +78,7 @@ export default {
     clone({ name }) {
       console.log('响应成功', name)
       const zindex = this.elements.length + 1
+      // 获取编辑器配置
       const defaultPropsValue = this.getPropsDefaultValue(name)
       this.elements.push(new Element({ name, zindex, defaultPropsValue }))
     },
@@ -88,7 +90,7 @@ export default {
       const defaultPropsValue = {}
       // 获取局部注册Component
       const component = this.$options.components[pluginName]
-      // 编辑栏配置
+      // 获取组件编辑栏配置
       const propConfig = component.editorConfig.propConfig
       Object.keys(propConfig).forEach(key => {
         defaultPropsValue[key] = propConfig[key].widgetProps.value
@@ -97,6 +99,7 @@ export default {
     },
     mixinPlugins2Editor() {
       PluginList.forEach(plugin => {
+        Vue.component(plugin.name, plugin.component)
         this.$options.components[plugin.name] = plugin.component
       })
     }
@@ -112,7 +115,8 @@ export default {
 $cellSize: 35.6px;
 $designerWidth: 320px;
 $designerHeight: 568px;
-$designerWidthHalf: $designerWidth / 2;
+
+// 为了能够调用el-col类
 #designer-page {
   display: flex;
   min-height: calc(100% - 40px);
