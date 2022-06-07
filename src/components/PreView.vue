@@ -1,5 +1,5 @@
 <template>
-  <!-- Canvas -->
+  <!-- PreView -->
   <div style="{height:100%}">
     <component
       v-for="(element,index) in elements"
@@ -7,24 +7,17 @@
       :is="element.name"
       :style="element.getStyle()"
       v-bind="element.pluginProps"
-      @click.native="parentD.setCurrentEditingElement(element)"
     ></component>
   </div>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    parentD: {}
-  }),
   props: {
     elements: {
       type: Array,
       default: () => []
     }
-  },
-  created() {
-    this.parentD = this.$parent
   }
 }
 </script>

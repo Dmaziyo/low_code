@@ -5,8 +5,15 @@
         <plugin-list-panel @Eclone="clone" :visible-plugin-list="visiblePluginList"></plugin-list-panel>
       </div>
       <div class="el-col-13">
+        <div style="text-align:center">
+          <el-radio-group v-model="isPreviewMode">
+            <el-radio-button :label="false">Edit</el-radio-button>
+            <el-radio-button :label="true">PreView</el-radio-button>
+          </el-radio-group>
+        </div>
         <div class="canvas-wrapper">
-          <edit-canvas :elements="elements"></edit-canvas>
+          <edit-canvas v-if="!isPreviewMode" :elements="elements"></edit-canvas>
+          <pre-view v-else :elements="elements"></pre-view>
         </div>
       </div>
       <div class="el-col-6">
@@ -92,6 +99,7 @@ class Element {
 }
 
 import EditCanvas from '@/components/Canvas'
+import PreView from '@/components/PreView.vue'
 import PluginListPanel from '@/components/PluginListPanel'
 import EditorPanel from '@/components/EditorPanel.vue'
 import Vue from 'vue'
@@ -100,13 +108,15 @@ export default {
   components: {
     EditorPanel,
     EditCanvas,
-    PluginListPanel
+    PluginListPanel,
+    PreView
   },
   data() {
     return {
       pages: [],
       elements: [],
-      editingElement: null
+      editingElement: null,
+      isPreviewMode: false
     }
   },
   computed: {
@@ -117,7 +127,11 @@ export default {
   methods: {
     // 获取组件编辑器配置
     getEditorConfig(pluginName) {
-      return this.$options.components[pluginName].editorConfig
+      console.log(pluginName)
+      //组件构造器
+      const pluginCtor = Vue.component(pluginName)
+      console.log(pluginCtor)
+      return new pluginCtor().$options.editorConfig
     },
     /**
      * 复制插件的基本数据至组件树中，即elements
@@ -132,13 +146,13 @@ export default {
       this.mixinPluginCustomComponents2Editor()
     },
 
-    // 注册el组件
     mixinPlugins2Editor() {
       PluginList.forEach(plugin => {
+        // 全局注册组件
         Vue.component(plugin.name, plugin.component)
-        this.$options.components[plugin.name] = plugin.component
       })
     },
+    // Register custom component
     mixinPluginCustomComponents2Editor() {
       const { components } = this.editingElement.editorConfig
       for (const key in components) {
