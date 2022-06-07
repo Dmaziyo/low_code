@@ -18,11 +18,12 @@ export default {
           const data = {
             props: {
               ...item.prop,
-              value: editingElement[propKey] || item.defaultPropValue
+              value: editingElement.pluginProps[propKey] || item.defaultPropValue
             },
             on: {
               input(value) {
-                editingElement[propKey] = value
+                console.log(propKey)
+                editingElement.pluginProps[propKey] = value
               }
             }
           }

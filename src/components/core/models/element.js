@@ -24,18 +24,20 @@ class Element {
     this.init()
   }
   getStyle() {
-    return {
+    const pluginProps = this.pluginProps
+    let style = {
       top: `${this.top}px`,
-      left: `${this.left}px`,
-      width: `${this.width}px`,
-      height: `${this.height}px`,
-      fontSize: `${this.fontSize}px`,
-      color: this.color,
-      backgroundColor: this.backgroundColor,
-      borderWidth: `${this.borderWidth}px`,
-      borderRadius: `${this.borderRadius}px`,
-      textAlign: this.textAlign
+      left: `${pluginProps.left || this.left}px`,
+      width: `${pluginProps.width || this.width}px`,
+      height: `${pluginProps.height || this.height}px`,
+      fontSize: `${pluginProps.fontSize || this.fontSize}px`,
+      color: pluginProps.color || this.color,
+      backgroundColor: pluginProps.backgroundColor || this.backgroundColor,
+      borderWidth: `${pluginProps.borderWidth || this.borderWidth}px`,
+      borderRadius: `${pluginProps.borderRadius || this.borderRadius}px`,
+      textAlign: pluginProps.textAlign || this.textAlign
     }
+    return style
   }
   getClass() {}
   getData() {}
