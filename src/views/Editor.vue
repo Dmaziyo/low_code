@@ -3,15 +3,23 @@
 <script>
 import Vue from 'vue'
 import LbpButton from '@/components/plugins/LbpButton.vue'
-import CoreEditor from '@/components/core/Editor.vue'
+import CoreEditor from '@/components/core/CoreEditor.vue'
+import LbpPicture from '@/components/plugins/LbpPicture.vue'
 // 用于全局注册
 const PluginList = [
   {
     title: '按钮',
-    icon: 'hand-pointer-0',
+    icon: 'hand-pointer-o',
     component: LbpButton,
     visible: true,
     name: 'lbp-button'
+  },
+  {
+    title: '图片',
+    icon: 'picture-o',
+    component: LbpPicture,
+    visible: true,
+    name: 'lbp-picture'
   }
 ]
 
@@ -26,7 +34,7 @@ export default {
   methods: {
     mixinPlugins2Editor() {
       PluginList.forEach(plugin => {
-        // 全局注册组件
+        // 全局注册Plugin
         Vue.component(plugin.name, plugin.component)
       })
     }

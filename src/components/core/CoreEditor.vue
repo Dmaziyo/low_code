@@ -29,19 +29,8 @@
  * 自身需要props属性来修改，还需要同时配置编辑栏属性修改组件
  */
 // 组件列表
-import LbpButton from '@/components/plugins/LbpButton.vue'
 
 import Element from '@/components/core/models/element.js'
-// 用于全局注册
-const PluginList = [
-  {
-    title: '按钮',
-    icon: 'hand-pointer-0',
-    component: LbpButton,
-    visible: true,
-    name: 'lbp-button'
-  }
-]
 
 import EditCanvas from '@/components/Canvas'
 import PreView from '@/components/PreView.vue'
@@ -64,11 +53,7 @@ export default {
       isPreviewMode: false
     }
   },
-  computed: {
-    visiblePluginList() {
-      return PluginList.filter(p => p.visible)
-    }
-  },
+
   methods: {
     // 获取组件编辑器配置
     getEditorConfig(pluginName) {
