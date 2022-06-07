@@ -11,7 +11,7 @@
   borderWidth:borderWidth+'px',
   textDecoration:'none'
   }"
-  >{{name}}</button>
+  >{{text}}</button>
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
   name: 'lbp-button',
   //   组件的属性
   props: {
-    name: {
+    text: {
       type: String,
       default: '按钮'
     },

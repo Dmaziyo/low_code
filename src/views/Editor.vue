@@ -74,11 +74,9 @@ class Element {
   getData() {}
   // 初始化默认样式 & 默认编辑器样式
   init() {
-    // init defaultStyle
     Object.keys(defaultProps).forEach(key => {
       this[key] = defaultProps[key]
     })
-    // 可能会覆盖上面的初始化，将editor的属性和组件样式绑定
     const propConf = this.editorConfig.propConfig
     Object.keys(propConf).forEach(key => {
       this[key] = propConf[key].defaultPropValue
@@ -93,7 +91,6 @@ import Vue from 'vue'
 export default {
   name: 'Editor',
   components: {
-    //   这个是右边编辑栏的
     EditorPanel,
     EditCanvas,
     PluginListPanel
@@ -120,7 +117,6 @@ export default {
      */
     clone({ name }) {
       const zindex = this.elements.length + 1
-      // 获取编辑器配置
       const editorConfig = this.getEditorConfig(name)
       this.elements.push(new Element({ name, zindex, editorConfig }))
     },
