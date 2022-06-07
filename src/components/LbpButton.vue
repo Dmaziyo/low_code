@@ -169,7 +169,7 @@ export default {
                 <el-radio-group v-model="value_" size="small">
                   <el-tooltip  placement="top" effect="dark" v-for="(item,index) in textAlignTabs" :key=index :content="item.label">
                     <el-radio-button :label="item.value">
-                        <i :class="['fa','fa-align-\${item.value}']" aria-hidden="true"></i>
+                        <i :class="['fa','fa-align-'+item.value]" aria-hidden="true"></i>
                     </el-radio-button>
                   </el-tooltip>
                 </el-radio-group>
