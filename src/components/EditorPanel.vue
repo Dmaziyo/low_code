@@ -12,7 +12,7 @@ export default {
     const editingElement = this.editingElement
     const propsConfig = editingElement.editorConfig.propConfig
     return (
-      <el-form ref="form" label-width="80px">
+      <el-form ref="form" label-width="100px" size="mini">
         {Object.keys(propsConfig).map(propKey => {
           const item = propsConfig[propKey]
           const data = {
