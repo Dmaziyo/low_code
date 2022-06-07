@@ -1,4 +1,5 @@
 <script>
+// 渲染组件编辑器
 export default {
   props: {
     editingElement: {
