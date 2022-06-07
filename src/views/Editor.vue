@@ -77,6 +77,8 @@ class Element {
     Object.keys(defaultProps).forEach(key => {
       this[key] = defaultProps[key]
     })
+    // init prop of plugin
+    this.pluginProps = {}
     const propConf = this.editorConfig.propConfig
     Object.keys(propConf).forEach(key => {
       // 因为this.name与组件名称绑定了
@@ -84,7 +86,7 @@ class Element {
         console.warn("please don't use name as  plugin prop")
         return
       }
-      this[key] = propConf[key].defaultPropValue
+      this.pluginProps[key] = propConf[key].defaultPropValue
     })
   }
 }
