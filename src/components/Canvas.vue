@@ -6,6 +6,7 @@
       :key="index"
       :is="element.name"
       :style="element.getStyle()"
+      v-bind="element"
       @click.native="parentD.setCurrentEditingElement(element)"
     ></component>
   </div>

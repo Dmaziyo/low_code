@@ -79,6 +79,11 @@ class Element {
     })
     const propConf = this.editorConfig.propConfig
     Object.keys(propConf).forEach(key => {
+      // 因为this.name与组件名称绑定了
+      if (key === 'name') {
+        console.warn("please don't use name as  plugin prop")
+        return
+      }
       this[key] = propConf[key].defaultPropValue
     })
   }
