@@ -122,14 +122,23 @@ export default {
     },
     setCurrentEditingElement(element) {
       this.editingElement = element
+      this.mixinPluginCustomComponents2Editor()
     },
 
-    // 注册组件
+    // 注册el组件
     mixinPlugins2Editor() {
       PluginList.forEach(plugin => {
         Vue.component(plugin.name, plugin.component)
         this.$options.components[plugin.name] = plugin.component
       })
+    },
+    mixinPluginCustomComponents2Editor() {
+      const { components } = this.editingElement.editorConfig
+      for (const key in components) {
+        if (this.$options.components[key]) return
+        Vue.component(key, components[key])
+        this.$options.components[key] = components[key]
+      }
     }
   },
   created() {

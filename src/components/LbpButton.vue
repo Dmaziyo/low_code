@@ -166,7 +166,13 @@ export default {
       'lbs-text-align': {
         template: `
             <div>
-                <el-radio-group v-model=""
+                <el-radio-group v-model="value_" size="small">
+                  <el-tooltip  placement="top" effect="dark" v-for="(item,index) in textAlignTabs" :key=index :content="item.label">
+                    <el-radio-button :label="item.value">
+                        <i :class="['fa','fa-align-\${item.value}']" aria-hidden="true"></i>
+                    </el-radio-button>
+                  </el-tooltip>
+                </el-radio-group>
             </div>
             `,
         props: {
@@ -185,7 +191,9 @@ export default {
         },
         computed: {
           value_: {
-            get: () => this.value,
+            get() {
+              return this.value
+            },
             // 双向绑定
             set(val) {
               this.$emit('input', val)
