@@ -16,7 +16,7 @@ const PluginList = [
   },
   {
     title: '图片',
-    icon: 'picture-o',
+    icon: 'image',
     component: LbpPicture,
     visible: true,
     name: 'lbp-picture'
