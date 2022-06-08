@@ -1,30 +1,28 @@
 <template>
-  <div style="height:100vh;">
-    <div id="designer-page">
-      <div class="el-col-5">
-        <plugin-list-panel @Eclone="clone" :visible-plugin-list="visiblePluginList"></plugin-list-panel>
+  <div id="designer-page">
+    <div class="el-col-5">
+      <plugin-list-panel @Eclone="clone" :visible-plugin-list="visiblePluginList"></plugin-list-panel>
+    </div>
+    <div class="el-col-13">
+      <div style="text-align:center">
+        <el-radio-group v-model="isPreviewMode">
+          <el-radio-button :label="false">Edit</el-radio-button>
+          <el-radio-button :label="true">PreView</el-radio-button>
+        </el-radio-group>
       </div>
-      <div class="el-col-13">
-        <div style="text-align:center">
-          <el-radio-group v-model="isPreviewMode">
-            <el-radio-button :label="false">Edit</el-radio-button>
-            <el-radio-button :label="true">PreView</el-radio-button>
-          </el-radio-group>
-        </div>
-        <div class="canvas-wrapper">
-          <edit-canvas v-if="!isPreviewMode" :elements="elements"></edit-canvas>
-          <pre-view v-else :elements="elements"></pre-view>
-        </div>
+      <div class="canvas-wrapper">
+        <edit-canvas v-if="!isPreviewMode" :elements="elements"></edit-canvas>
+        <pre-view v-else :elements="elements"></pre-view>
       </div>
-      <div class="el-col-6">
-        <el-tabs type="border-card" style="height:100%">
-          <el-tab-pane label="属性">
-            <editor-panel :editing-element="editingElement"></editor-panel>
-          </el-tab-pane>
-          <el-tab-pane label="动画">动画</el-tab-pane>
-          <el-tab-pane label="动作">动作</el-tab-pane>
-        </el-tabs>
-      </div>
+    </div>
+    <div class="el-col-6">
+      <el-tabs type="border-card" style="height:100%">
+        <el-tab-pane label="属性">
+          <editor-panel :editing-element="editingElement"></editor-panel>
+        </el-tab-pane>
+        <el-tab-pane label="动画">动画</el-tab-pane>
+        <el-tab-pane label="动作">动作</el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
