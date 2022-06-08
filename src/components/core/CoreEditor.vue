@@ -17,7 +17,13 @@
         </div>
       </div>
       <div class="el-col-6">
-        <editor-panel :editing-element="editingElement"></editor-panel>
+        <el-tabs type="border-card" style="height:100%">
+          <el-tab-pane label="属性">
+            <editor-panel :editing-element="editingElement"></editor-panel>
+          </el-tab-pane>
+          <el-tab-pane label="动画">动画</el-tab-pane>
+          <el-tab-pane label="动作">动作</el-tab-pane>
+        </el-tabs>
       </div>
     </div>
   </div>
