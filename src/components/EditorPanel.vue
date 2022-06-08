@@ -22,7 +22,6 @@ export default {
             },
             on: {
               input(value) {
-                console.log(propKey)
                 editingElement.pluginProps[propKey] = value
               }
             }

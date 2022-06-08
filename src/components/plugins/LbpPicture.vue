@@ -13,15 +13,15 @@ export default {
     }
   },
   editorConfig: {
-    propsConfig: {
+    propConfig: {
       imgSrc: {
-        type: 'picture-picker',
-        label: '',
+        type: 'el-input',
+        label: '图片url',
         require: true,
-        widgetProps: {
-          value: '',
-          template: '%i'
-        }
+        prop: {
+          type: 'textarea'
+        },
+        defaultPropValue: ''
       }
     },
     components: {
