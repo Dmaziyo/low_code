@@ -12,14 +12,51 @@ const PluginList = [
     icon: 'hand-pointer-o',
     component: LbpButton,
     visible: true,
-    name: 'lbp-button'
+    name: 'lbp-button',
+    children: [
+      {
+        title: '按钮',
+        icon: 'hand-pointer-o',
+        visible: true,
+        name: 'lbp-button'
+      }
+    ]
   },
   {
     title: '图片',
     icon: 'image',
     component: LbpPicture,
     visible: true,
-    name: 'lbp-picture'
+    name: 'lbp-picture',
+    children: [
+      {
+        title: '图片',
+        icon: 'image',
+        component: LbpPicture,
+        visible: true,
+        name: 'lbp-picture'
+      }
+    ]
+  },
+  {
+    title: '表单',
+    icon: 'wpforms',
+    visible: true,
+    children: [
+      {
+        title: '按钮',
+        icon: 'hand-pointer-o',
+        visible: true,
+        name: 'lbp-button'
+      },
+      {
+        title: '图片',
+        icon: 'image',
+        component: LbpPicture,
+        visible: true,
+        name: 'lbp-picture'
+      }
+    ]
   }
 ]
 
@@ -27,7 +64,11 @@ export default {
   extends: CoreEditor,
 
   computed: {
+    // 可以显示在侧边栏的组件列表
     visiblePluginList() {
+      return PluginList.filter(p => p.visible)
+    },
+    groups() {
       return PluginList.filter(p => p.visible)
     }
   },
