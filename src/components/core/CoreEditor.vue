@@ -156,6 +156,8 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped src="@/components/core/styles/index.scss">
+</style>
 
 <style lang="scss">
 $cellSize: 35.6px;
