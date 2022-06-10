@@ -1,7 +1,7 @@
 
 
 <script>
-import ShortcutButton from '@/components/ShortCutButton.vue'
+import ShortcutButton from '@/components/shortcut-panel/ShortCutButton.vue'
 export default {
   props: {
     visiblePluginList: {

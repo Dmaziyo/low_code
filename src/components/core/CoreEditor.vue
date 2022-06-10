@@ -95,10 +95,10 @@
 
 import Element from '@/components/core/models/element.js'
 
-import EditCanvas from '@/components/Canvas'
-import PreView from '@/components/PreView.vue'
-import PluginListPanel from '@/components/PluginListPanel'
-import EditorPanel from '@/components/EditorPanel.vue'
+import EditCanvas from '@/components/canvas/Canvas.vue'
+import PreView from '@/components/canvas/PreView.vue'
+import PluginListPanel from '@/components/shortcut-panel/PluginListPanel.vue'
+import EditorPanel from '@/components/edit-panel/EditorPanel.vue'
 import Vue from 'vue'
 export default {
   name: 'Editor',
