@@ -156,7 +156,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped src="@/components/core/styles/index.scss">
+<style lang="scss"  src="@/components/core/styles/index.scss">
 </style>
 
 <style lang="scss">
