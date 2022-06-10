@@ -7,7 +7,7 @@
       :is="element.name"
       :style="element.getStyle()"
       v-bind="element.pluginProps"
-      @click.native="parentD.setCurrentEditingElement(element)"
+      @click.native="clickEle(element)"
     ></component>
   </div>
 </template>
@@ -23,8 +23,10 @@ export default {
       default: () => []
     }
   },
-  created() {
-    this.parentD = this.$parent
+  methods: {
+    clickEle(element) {
+      this.$emit('clickEle', element)
+    }
   }
 }
 </script>

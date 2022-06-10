@@ -76,6 +76,7 @@ export default {
     mixinPlugins2Editor() {
       PluginList.forEach(plugin => {
         // 全局注册Plugin
+        console.log(plugin)
         Vue.component(plugin.name, plugin.component)
       })
     }
@@ -104,5 +105,6 @@ $designerHeight: 568px;
   height: $designerHeight;
   border: 1px #ebeaea solid;
   margin: 0 auto;
+  background: #fff;
 }
 </style>

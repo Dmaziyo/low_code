@@ -20,7 +20,7 @@ export default {
   editorConfig: {
     propConfig: {
       imgSrc: {
-        type: 'el-input',
+        type: 'a-input',
         label: '图片url',
         require: true,
         prop: {

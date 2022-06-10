@@ -1,17 +1,5 @@
 <template>
-  <button
-    :style="{
-  color,
-  textAlign,
-  backgroundColor,
-  fontSize:fontSize+'px',
-  lineHeight:lineHeight+'em',
-  borderColor,
-  borderRadius:borderRadius+'px',
-  borderWidth:borderWidth+'px',
-  textDecoration:'none'
-  }"
-  >{{text}}</button>
+  <button :style="_style">{{text}}</button>
 </template>
 
 <script>
@@ -73,18 +61,34 @@ export default {
       default: 'center'
     }
   },
+  computed: {
+    _style() {
+      return {
+        // fix can't change fontSize without getStyle()
+        color: this.color,
+        textAlign: this.textAlign,
+        backgroundColor: this.backgroundColor,
+        fontSize: this.fontSize + 'px',
+        lineHeight: this.lineHeight + 'em',
+        borderColor: this.borderColor,
+        borderRadius: this.borderRadius + 'px',
+        borderWidth: this.borderWidth + 'px',
+        textDecoration: 'none'
+      }
+    }
+  },
   //   editor右侧编辑框配置
   //   利用element现有的组件以及自定义组件来实现
   editorConfig: {
     propConfig: {
       text: {
-        type: 'el-input',
+        type: 'a-input',
         label: '按钮文字',
         require: true,
         defaultPropValue: '按钮'
       },
       fontSize: {
-        type: 'el-input-number',
+        type: 'a-input-number',
         label: '字号(px)',
         require: true,
         prop: {
@@ -95,7 +99,7 @@ export default {
         defaultPropValue: 14
       },
       color: {
-        type: 'el-input',
+        type: 'a-input',
         label: '文字颜色',
         prop: {
           type: 'color'
@@ -104,7 +108,7 @@ export default {
         defaultPropValue: 'black'
       },
       backgroundColor: {
-        type: 'el-input',
+        type: 'a-input',
         label: '背景颜色',
         prop: {
           type: 'color'
@@ -113,7 +117,7 @@ export default {
         defaultPropValue: '#ffffff'
       },
       borderColor: {
-        type: 'el-input',
+        type: 'a-input',
         label: '边框颜色',
         prop: {
           type: 'color'
@@ -122,7 +126,7 @@ export default {
         defaultPropValue: '#eeeeee'
       },
       borderWidth: {
-        type: 'el-input-number',
+        type: 'a-input-number',
         label: '边框宽度(px)',
         require: true,
         prop: {
@@ -133,7 +137,7 @@ export default {
         defaultPropValue: 1
       },
       borderRadius: {
-        type: 'el-input-number',
+        type: 'a-input-number',
         label: '圆角(px)',
         require: true,
         prop: {
@@ -144,7 +148,7 @@ export default {
         defaultPropValue: 0
       },
       lineHeight: {
-        type: 'el-input-number',
+        type: 'a-input-number',
         label: '行高',
         require: true,
         prop: {
@@ -166,13 +170,13 @@ export default {
       'lbs-text-align': {
         template: `
             <div>
-                <el-radio-group v-model="value_" size="small">
-                  <el-tooltip  placement="top" effect="dark" v-for="(item,index) in textAlignTabs" :key=index :content="item.label">
-                    <el-radio-button :label="item.value">
+                <a-radio-group v-model="value_" size="small">
+                  <a-tooltip  placement="top" effect="dark" v-for="(item,index) in textAlignTabs" :key=index :title="item.label">
+                    <a-radio-button :label="item.value">
                         <i :class="['fa','fa-align-'+item.value]" aria-hidden="true"></i>
-                    </el-radio-button>
-                  </el-tooltip>
-                </el-radio-group>
+                    </a-radio-button>
+                  </a-tooltip>
+                </a-radio-group>
             </div>
             `,
         props: {
@@ -215,13 +219,14 @@ export default {
           }
         },
         template: `
-        <el-select v-model="value_" placeholder="类型">
-            <el-option
+        <a-select v-model="value_" placeholder="类型">
+            <a-option
                 v-for="item in options"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
-            </el-option>
+            </a-option>
+        </a-select>
         `,
         data() {
           return {
