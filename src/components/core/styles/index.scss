@@ -23,4 +23,20 @@
           width: 100%;
           height: 40px;
       }
+    .canvas-editor-wrapper{
+        .element--editing{
+            outline: 1px dashed #70c0ff !important;
+        }
+
+        // 控制放大缩小的点
+        .shape__scale-point{
+            position: absolute;
+            background:#fff;
+            border: 1px solid #70c0ff;
+            width: 6px;
+            height: 6px;
+            z-index: 1;
+            border-radius: 50%;
+        }
+    }
 }

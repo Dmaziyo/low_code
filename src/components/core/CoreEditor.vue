@@ -49,8 +49,14 @@
             </a-radio-group>
           </div>
           <div class="canvas-wrapper">
-            <edit-canvas @clickEle="clickEle" :elements="elements" v-if="!isPreviewMode"></edit-canvas>
-            <pre-view @clickEle="clickEle" :elements="elements" v-else></pre-view>
+            <edit-canvas
+              :handleClickCanvasProp="this.handleClickCanvasProp"
+              :handleClickElementProp="setCurrentEditingElement"
+              :editingElement="editingElement"
+              :elements="elements"
+              v-if="!isPreviewMode"
+            ></edit-canvas>
+            <pre-view :elements="elements" v-else></pre-view>
           </div>
         </a-layout-content>
 
@@ -137,8 +143,10 @@ export default {
       this.editingElement = element
       this.mixinPluginCustomComponents2Editor()
     },
-    clickEle(element) {
-      this.setCurrentEditingElement(element)
+    handleClickCanvasProp(e) {
+      if (!e.target.classList.contains('element-on-edit-canvas')) {
+        this.editingElement = null
+      }
     },
     // Register custom component
     mixinPluginCustomComponents2Editor() {

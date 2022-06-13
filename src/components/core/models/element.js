@@ -21,21 +21,23 @@ class Element {
     // 这个this是新建立的对象了
     this.name = ele.name
     this.editorConfig = ele.editorConfig || {}
+    this.commonStyle = {}
     this.init()
   }
   getStyle() {
     const pluginProps = this.pluginProps
+    const commonStyle = this.commonStyle
     let style = {
-      top: `${this.top}px`,
-      left: `${pluginProps.left || this.left}px`,
-      width: `${pluginProps.width || this.width}px`,
-      height: `${pluginProps.height || this.height}px`,
-      fontSize: `${pluginProps.fontSize || this.fontSize}px`,
-      color: pluginProps.color || this.color,
-      backgroundColor: pluginProps.backgroundColor || this.backgroundColor,
-      borderWidth: `${pluginProps.borderWidth || this.borderWidth}px`,
-      borderRadius: `${pluginProps.borderRadius || this.borderRadius}px`,
-      textAlign: pluginProps.textAlign || this.textAlign
+      top: `${this.top || commonStyle.top}px`,
+      left: `${pluginProps.left || commonStyle.left}px`,
+      width: `${pluginProps.width || commonStyle.width}px`,
+      height: `${pluginProps.height || commonStyle.height}px`,
+      fontSize: `${pluginProps.fontSize || commonStyle.fontSize}px`,
+      color: pluginProps.color || commonStyle.color,
+      backgroundColor: pluginProps.backgroundColor || commonStyle.backgroundColor,
+      borderWidth: `${pluginProps.borderWidth || commonStyle.borderWidth}px`,
+      borderRadius: `${pluginProps.borderRadius || commonStyle.borderRadius}px`,
+      textAlign: pluginProps.textAlign || commonStyle.textAlign
     }
     return style
   }
@@ -43,8 +45,9 @@ class Element {
   getData() {}
   // 初始化默认样式 & 默认编辑器样式
   init() {
+    const commonStyle = this.commonStyle
     Object.keys(defaultProps).forEach(key => {
-      this[key] = defaultProps[key]
+      commonStyle[key] = defaultProps[key]
     })
     // init prop of plugin
     this.pluginProps = {}
