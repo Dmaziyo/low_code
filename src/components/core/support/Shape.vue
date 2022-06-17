@@ -52,16 +52,17 @@ export default {
       }
       return style
     },
+    // prevent Bubble
     handlerWrapperClick(e) {
       e.stopPropagation()
       e.preventDefault()
     },
-    // 控制元素大小
+    // 点击拖拽点时的事件
     mousedownForMark(point, downEvent) {
-      console.log(point, downEvent)
+      console.log(this)
+      console.log(downEvent)
       downEvent.stopPropagation()
       downEvent.preventDefault()
-
       const pos = this.element.commonStyle
       let height = pos.height
       let width = pos.width
@@ -75,6 +76,7 @@ export default {
         let currY = moveEvent.clientY
         let disY = currY - startY
         let disX = currX - startX
+        // 判断方位
         let hasT = /t/.test(point)
         let hasB = /b/.test(point)
         let hasL = /l/.test(point)
@@ -121,8 +123,6 @@ export default {
     handleMousedown(e) {
       if (this.handleMousedownProp) {
         this.handleMousedownProp(this.element)
-        console.log(this.element)
-        console.log(this.editingElement === this.element)
         this.mousedownForElement(e, this.element)
       }
     }
@@ -132,18 +132,22 @@ export default {
       <div
         onClick={this.handlerWrapperClick}
         onMousedown={this.handleMousedown}
+        // extend plugin style
         style={{ ...this.element.getStyle(), position: 'absolute' }}
       >
         {this.active &&
           points.map(point => {
             const pointStyle = this.getPointStyle(point)
             return (
+              // 遍历生成8个方位点
               <div
                 key={point}
                 data-point={point}
                 style={pointStyle}
                 class="shape__scale-point"
-                onMousedown={this.mousedownForMark.bind(this, point)}
+                onMousedown={e => {
+                  this.mousedownForMark(point, e)
+                }}
               ></div>
             )
           })}

@@ -143,6 +143,7 @@ export default {
       this.editingElement = element
       this.mixinPluginCustomComponents2Editor()
     },
+    // reset Editing Element
     handleClickCanvasProp(e) {
       if (!e.target.classList.contains('element-on-edit-canvas')) {
         this.editingElement = null
