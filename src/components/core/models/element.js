@@ -29,7 +29,7 @@ class Element {
     const pluginProps = this.pluginProps
     const commonStyle = this.commonStyle
     let style = {
-      top: `${this.top || commonStyle.top}px`,
+      top: `${pluginProps.top || commonStyle.top}px`,
       left: `${pluginProps.left || commonStyle.left}px`,
       width: `${pluginProps.width || commonStyle.width}px`,
       height: `${pluginProps.height || commonStyle.height}px`,
