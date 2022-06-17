@@ -20,6 +20,7 @@ class Element {
   constructor(ele) {
     // 这个this是新建立的对象了
     this.name = ele.name
+    this.uuid=+new Date()
     this.editorConfig = ele.editorConfig || {}
     this.commonStyle = {}
     this.init()
