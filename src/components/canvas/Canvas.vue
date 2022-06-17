@@ -3,7 +3,7 @@
   <div
     class="canvas-editor-wrapper"
     @click="this.handleClickCanvasProp"
-    style="{position:relative height:100%}"
+    style="position:relative; height:100%"
   >
     <Shape
       v-for="(element,index) in elements"
