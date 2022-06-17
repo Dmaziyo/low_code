@@ -7,7 +7,7 @@ const directionKey = {
 }
 const points = ['lt', 'rt', 'lb', 'rb', 'l', 'r', 't', 'b']
 export default {
-  props: ['element', 'active', 'editingElement', 'handleMousedownProp'],
+  props: ['element', 'active', 'editingElement', 'handleMousedownProp','handleElementMoveProp'],
   methods: {
     //拖拽点的样式
     getPointStyle(point, isWrapElement = true) {
@@ -111,6 +111,7 @@ export default {
 
         pos.top = currY - startY + startTop
         pos.left = currX - startX + startLeft
+        this.handleElementMoveProp(pos)
       }
       let up = () => {
         document.removeEventListener('mousemove', move, true)

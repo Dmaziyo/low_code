@@ -38,5 +38,20 @@
             z-index: 1;
             border-radius: 50%;
         }
+        // TODO #:写一个辅助线类：base-line
+        .v-line{
+            position: absolute;
+            height: 100vh;
+            width: 1px;
+            top: 0;
+            background-color: #94f5ff;
+        }
+        .h-line{
+            position:absolute;
+            height: 1px;
+            left: 0;
+            width: 100vw;
+            background-color: #94f5ff;
+        }
     }
 }
