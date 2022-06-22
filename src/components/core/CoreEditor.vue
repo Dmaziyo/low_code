@@ -137,13 +137,15 @@ export default {
       console.log(name)
       const zindex = this.elements.length + 1
       const editorConfig = this.getEditorConfig(name)
+      console.log(editorConfig)
       this.elements.push(new Element({ name, zindex, editorConfig }))
     },
+    // Set Editing Element
     setCurrentEditingElement(element) {
       this.editingElement = element
       this.mixinPluginCustomComponents2Editor()
     },
-    // reset Editing Element
+    // Reset Editing Element
     handleClickCanvasProp(e) {
       if (!e.target.classList.contains('element-on-edit-canvas')) {
         this.editingElement = null

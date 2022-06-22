@@ -7,7 +7,7 @@ const directionKey = {
 }
 const points = ['lt', 'rt', 'lb', 'rb', 'l', 'r', 't', 'b']
 export default {
-  props: ['element', 'active', 'editingElement', 'handleMousedownProp','handleElementMoveProp'],
+  props: ['element', 'active', 'editingElement', 'handleMousedownProp', 'handleElementMoveProp'],
   methods: {
     //拖拽点的样式
     getPointStyle(point, isWrapElement = true) {
@@ -59,8 +59,6 @@ export default {
     },
     // 点击拖拽点时的事件
     mousedownForMark(point, downEvent) {
-      console.log(this)
-      console.log(downEvent)
       downEvent.stopPropagation()
       downEvent.preventDefault()
       const pos = this.element.commonStyle

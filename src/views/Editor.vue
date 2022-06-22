@@ -5,6 +5,7 @@ import Vue from 'vue'
 import LbpButton from '@/components/plugins/LbpButton.vue'
 import CoreEditor from '@/components/core/CoreEditor.vue'
 import LbpPicture from '@/components/plugins/LbpPicture.vue'
+import LbpText from '@/components/plugins/LbpText.vue'
 // 用于全局注册
 const PluginList = [
   {
@@ -55,6 +56,22 @@ const PluginList = [
         component: LbpPicture,
         visible: true,
         name: 'lbp-picture'
+      }
+    ]
+  },
+  {
+    title: '文字',
+    icon: 'hand-pointer-o',
+    component: LbpText,
+    visible: true,
+    name: 'lbp-text',
+    children: [
+      {
+        title: '文字',
+        icon: 'hand-pointer-o',
+        component: LbpText,
+        visible: true,
+        name: 'lbp-text'
       }
     ]
   }
