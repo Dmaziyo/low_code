@@ -7,9 +7,20 @@ export default {
       default: () => {}
     }
   },
+  methods: {
+    // Register custom component
+    mixinPluginCustomComponents2Editor() {
+      const { components } = this.editingElement.editorConfig
+      for (const key in components) {
+        if (this.$options.components[key]) return
+        this.$options.components[key] = components[key]
+      }
+    }
+  },
   render(h) {
     if (!this.editingElement) return <span>请先选择一个元素</span>
     const editingElement = this.editingElement
+    this.mixinPluginCustomComponents2Editor()
     const propsConfig = editingElement.editorConfig.propConfig
     return (
       <a-form ref="form" label-width="100px" size="mini" label-position="left">

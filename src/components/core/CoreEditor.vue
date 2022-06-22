@@ -143,21 +143,11 @@ export default {
     // Set Editing Element
     setCurrentEditingElement(element) {
       this.editingElement = element
-      this.mixinPluginCustomComponents2Editor()
     },
     // Reset Editing Element
     handleClickCanvasProp(e) {
       if (!e.target.classList.contains('element-on-edit-canvas')) {
         this.editingElement = null
-      }
-    },
-    // Register custom component
-    mixinPluginCustomComponents2Editor() {
-      const { components } = this.editingElement.editorConfig
-      for (const key in components) {
-        if (this.$options.components[key]) return
-        Vue.component(key, components[key])
-        this.$options.components[key] = components[key]
       }
     }
   },
