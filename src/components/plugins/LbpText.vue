@@ -18,7 +18,7 @@ export default {
       {
         style,
         on: {
-          dbClick() {
+          dblclick() {
             console.log('dbClick')
             self.canEdit = true
           }
