@@ -26,14 +26,15 @@ export default {
       <a-form ref="form" label-width="100px" size="mini" label-position="left">
         {Object.keys(propsConfig).map(propKey => {
           const item = propsConfig[propKey]
+          console.log(item.type)
           const data = {
             props: {
               ...item.prop,
               value: editingElement.pluginProps[propKey] || item.defaultPropValue
             },
             on: {
-              input(value) {
-                editingElement.pluginProps[propKey] = value
+              change(e) {
+                editingElement.pluginProps[propKey] = e.target ? e.target.value : e
               }
             }
           }
