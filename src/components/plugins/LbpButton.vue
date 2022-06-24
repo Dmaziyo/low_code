@@ -172,7 +172,7 @@ export default {
             <div>
                 <a-radio-group v-model="value_" size="small">
                   <a-tooltip  placement="top" effect="dark" v-for="(item,index) in textAlignTabs" :key=index :title="item.label">
-                    <a-radio-button :label="item.value">
+                    <a-radio-button :value="item.value">
                         <i :class="['fa','fa-align-'+item.value]" aria-hidden="true"></i>
                     </a-radio-button>
                   </a-tooltip>
@@ -200,7 +200,7 @@ export default {
             },
             // 双向绑定
             set(val) {
-              this.$emit('input', val)
+              this.$emit('change', val)
             }
           }
         }
