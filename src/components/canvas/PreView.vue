@@ -5,7 +5,7 @@
       v-for="(element,index) in elements"
       :key="index"
       :is="element.name"
-      :style="element.getStyle()"
+      :style="element.getStyle('absolute')"
       v-bind="element.pluginProps"
     ></component>
   </div>

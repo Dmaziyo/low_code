@@ -25,7 +25,7 @@ class Element {
     this.commonStyle = {}
     this.init()
   }
-  getStyle() {
+  getStyle(position = 'static') {
     const pluginProps = this.pluginProps
     const commonStyle = this.commonStyle
     let style = {
@@ -38,7 +38,8 @@ class Element {
       // backgroundColor: pluginProps.backgroundColor || commonStyle.backgroundColor,
       borderWidth: `${pluginProps.borderWidth || commonStyle.borderWidth}px`,
       borderRadius: `${pluginProps.borderRadius || commonStyle.borderRadius}px`,
-      textAlign: pluginProps.textAlign || commonStyle.textAlign
+      textAlign: pluginProps.textAlign || commonStyle.textAlign,
+      position
     }
     return style
   }
