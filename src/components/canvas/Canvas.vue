@@ -2,7 +2,8 @@
   <!-- Canvas -->
   <div
     class="canvas-editor-wrapper"
-    @click="this.handleClickCanvasProp"
+    @click="clickCanvas"
+    @contextmenu="bindContextMenu"
     style="position:relative; height:100%"
   >
     <Shape
@@ -33,6 +34,22 @@
       :style="{left:v_left}"
     ></div>
     <div class="h-line" v-for="(v_top,index) in hLines" :key="'hline'+index" :style="{top:v_top}"></div>
+    <a-menu
+      v-if="contextmenuPos.length>0"
+      :style="{
+        left:this.contextmenuPos[0]+'px',
+        top:this.contextmenuPos[1]+'px',
+        userSelect:'none',position:'absolute',
+        zIndex:999
+        }"
+    >
+      <a-menu-item data-command="copyEditingElement">复制</a-menu-item>
+      <a-menu-item data-command="deleteEditingElement">删除</a-menu-item>
+      <a-menu-item data-command="bringLayer2Front">置顶</a-menu-item>
+      <a-menu-item data-command="bringLayer2End">置地</a-menu-item>
+      <a-menu-item data-command="addLayerZindex">上移</a-menu-item>
+      <a-menu-item data-command="subtractLayerZindex">下移</a-menu-item>
+    </a-menu>
   </div>
 </template>
 
@@ -45,7 +62,8 @@ export default {
   data: () => ({
     // 数组用于动态显示
     vLines: [],
-    hLines: []
+    hLines: [],
+    contextmenuPos: []
   }),
   props: {
     elements: {
@@ -120,6 +138,24 @@ export default {
     handleElementMove({ top, left }) {
       this.calcX(left)
       this.calcY(top)
+    },
+    bindContextMenu(e) {
+      e.preventDefault() // 阻止默认右键菜单显示
+      // 判断是否为右键plugin
+      if (e.target.classList.contains('element-on-edit-canvas') || e.target.parentElement.classList.contains('element-on-edit-canvas')) {
+        const { x, y } = this.$el.getBoundingClientRect()
+        console.log('111111111111')
+        this.contextmenuPos = [e.clientX - x, e.clientY - y]
+      } else {
+        this.hideContextMenu()
+      }
+    },
+    hideContextMenu() {
+      this.contextmenuPos = []
+    },
+    clickCanvas(e) {
+      this.handleClickCanvasProp(e)
+      this.hideContextMenu()
     }
   }
 }
