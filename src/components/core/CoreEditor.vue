@@ -61,7 +61,7 @@
         </a-layout-content>
 
         <a-layout-sider width="240" theme="light" style="background:#fff; padding:0 12px">
-          <a-tabs type="card" style="height:100%">
+          <a-tabs type="card" style="height:100% ;overflow-y:auto">
             <a-tab-pane key="属性">
               <span slot="tab">
                 <a-icon type="apple" />属性
