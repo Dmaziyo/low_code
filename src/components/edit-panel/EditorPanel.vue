@@ -1,11 +1,9 @@
 <script>
 // 渲染组件编辑器
+import { mapState, mapActions } from 'vuex'
 export default {
-  props: {
-    editingElement: {
-      type: Object,
-      default: () => {}
-    }
+  computed: {
+    ...mapState('element', ['editingElement'])
   },
   methods: {
     // Register custom component
@@ -15,7 +13,8 @@ export default {
         if (this.$options.components[key]) return
         this.$options.components[key] = components[key]
       }
-    }
+    },
+    ...mapActions('element', ['setEditingElement'])
   },
   render(h) {
     if (!this.editingElement) return <span>请先选择一个元素</span>

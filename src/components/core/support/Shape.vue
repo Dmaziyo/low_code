@@ -1,4 +1,5 @@
 <script>
+import { mapActions } from 'vuex'
 const directionKey = {
   t: 'n',
   b: 's',
@@ -7,7 +8,8 @@ const directionKey = {
 }
 const points = ['lt', 'rt', 'lb', 'rb', 'l', 'r', 't', 'b']
 export default {
-  props: ['element', 'active', 'editingElement', 'handleMousedownProp', 'handleElementMoveProp'],
+  props: ['element', 'active', 'handleMousedownProp', 'handleElementMoveProp'],
+
   methods: {
     //拖拽点的样式
     getPointStyle(point, isWrapElement = true) {
@@ -109,6 +111,7 @@ export default {
 
         pos.top = currY - startY + startTop
         pos.left = currX - startX + startLeft
+        // 传递当前坐标
         this.handleElementMoveProp(pos)
       }
       let up = () => {
@@ -119,12 +122,12 @@ export default {
       document.addEventListener('mouseup', up, true)
       return true
     },
+    //点击后修改editingElement以及控制移动
     handleMousedown(e) {
-      if (this.handleMousedownProp) {
-        this.handleMousedownProp(this.element)
-        this.mousedownForElement(e, this.element)
-      }
-    }
+      this.setEditingElement(this.element)
+      this.mousedownForElement(e, this.element)
+    },
+    ...mapActions('element', ['setEditingElement'])
   },
   render() {
     return (

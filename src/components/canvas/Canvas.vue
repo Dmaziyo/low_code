@@ -12,7 +12,6 @@
       :element="element"
       :editingElement="editingElement"
       :active="editingElement===element"
-      :handleMousedownProp="handleClickElementProp.bind(this,element)"
       :handleElementMoveProp="handleElementMove"
     >
       <component
@@ -55,6 +54,7 @@
 
 <script>
 import Shape from '@/components/core/support/Shape.vue'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     Shape
@@ -69,22 +69,16 @@ export default {
     elements: {
       type: Array,
       default: () => []
-    },
-    handleClickElementProp: {
-      type: Function
-    },
-    editingElement: {
-      type: Object,
-      default: () => {}
-    },
-    handleClickCanvasProp: {
-      type: Function
     }
+  },
+  computed: {
+    ...mapState('element', ['editingElement'])
   },
   methods: {
     clickEle(element) {
       this.$emit('clickEle', element)
     },
+    // 画辅助线
     drawVLine(newLeft) {
       this.vLines = [newLeft + 'px']
     },
@@ -153,10 +147,14 @@ export default {
     hideContextMenu() {
       this.contextmenuPos = []
     },
+    // Reset Editing Element
     clickCanvas(e) {
-      this.handleClickCanvasProp(e)
+      if (!e.target.classList.contains('element-on-edit-canvas')) {
+        this.setEditingElement(null)
+      }
       this.hideContextMenu()
-    }
+    },
+    ...mapActions('element', ['setEditingElement'])
   }
 }
 </script>

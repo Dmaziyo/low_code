@@ -49,13 +49,7 @@
             </a-radio-group>
           </div>
           <div class="canvas-wrapper">
-            <edit-canvas
-              :handleClickCanvasProp="this.handleClickCanvasProp"
-              :handleClickElementProp="setCurrentEditingElement"
-              :editingElement="editingElement"
-              :elements="elements"
-              v-if="!isPreviewMode"
-            ></edit-canvas>
+            <edit-canvas :elements="elements" v-if="!isPreviewMode"></edit-canvas>
             <pre-view :elements="elements" v-else></pre-view>
           </div>
         </a-layout-content>
@@ -105,6 +99,7 @@ import EditCanvas from '@/components/canvas/Canvas.vue'
 import PreView from '@/components/canvas/PreView.vue'
 import PluginListPanel from '@/components/shortcut-panel/PluginListPanel.vue'
 import EditorPanel from '@/components/edit-panel/EditorPanel.vue'
+import { mapState } from 'vuex'
 import Vue from 'vue'
 export default {
   name: 'Editor',
@@ -118,11 +113,13 @@ export default {
     return {
       pages: [],
       elements: [],
-      editingElement: null,
+
       isPreviewMode: false
     }
   },
-
+  computed: {
+    ...mapState(['editingElement'])
+  },
   methods: {
     // 获取组件编辑器配置
     getEditorConfig(pluginName) {
@@ -139,16 +136,6 @@ export default {
       const editorConfig = this.getEditorConfig(name)
       console.log(editorConfig)
       this.elements.push(new Element({ name, zindex, editorConfig }))
-    },
-    // Set Editing Element
-    setCurrentEditingElement(element) {
-      this.editingElement = element
-    },
-    // Reset Editing Element
-    handleClickCanvasProp(e) {
-      if (!e.target.classList.contains('element-on-edit-canvas')) {
-        this.editingElement = null
-      }
     }
   },
   created() {
