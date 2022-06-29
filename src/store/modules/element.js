@@ -12,10 +12,10 @@ const actions = {
     commit('setEditingElement', payload)
   },
   setElementPosition({ commit }, payload) {
-    commit('setElementPosition', payload)
+    commit('setElementCommonStyle', payload)
   },
   setElementShape({ commit }, payload) {
-    commit('setElementShape', payload)
+    commit('setElementCommonStyle', payload)
   }
 }
 
@@ -24,10 +24,11 @@ const mutations = {
   setEditingElement(state, payload) {
     state.editingElement = payload
   },
-  setElementCommonStyle(state, commonStyle) {
+  setElementCommonStyle(state, payload) {
+    console.log(state.editingElement)
     state.editingElement.commonStyle = {
       ...state.editingElement.commonStyle,
-      ...commonStyle
+      ...payload
     }
   }
 }

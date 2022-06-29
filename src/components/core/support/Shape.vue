@@ -8,12 +8,16 @@ const directionKey = {
 }
 const points = ['lt', 'rt', 'lb', 'rb', 'l', 'r', 't', 'b']
 export default {
-  props: ['element', 'active', 'handleMousedownProp', 'handleElementMoveProp'],
-
+  props: ['element', 'defaultPosition', 'active', 'handleMousedownProp', 'handleElementMoveProp', 'handlePointMoveProp'],
+  computed: {
+    position() {
+      return { ...this.defaultPosition }
+    }
+  },
   methods: {
     //拖拽点的样式
     getPointStyle(point, isWrapElement = true) {
-      const pos = this.element.commonStyle
+      const pos = this.position
       const top = pos.top
       const left = pos.left
       const height = pos.height
@@ -63,7 +67,7 @@ export default {
     mousedownForMark(point, downEvent) {
       downEvent.stopPropagation()
       downEvent.preventDefault()
-      const pos = this.element.commonStyle
+      const pos = { ...this.position }
       let height = pos.height
       let width = pos.width
       let top = pos.top
@@ -87,6 +91,8 @@ export default {
         pos.width = newWidth > 0 ? newWidth : 0
         pos.left = +left + (hasL ? disX : 0)
         pos.top = +top + (hasT ? disY : 0)
+        // 因为pos是新对象，无法改变element中的pos，所以需要通过调用actions来修改
+        this.setElementPosition(pos)
       }
       let up = () => {
         document.removeEventListener('mousemove', move)
@@ -96,8 +102,8 @@ export default {
       document.addEventListener('mouseup', up)
     },
     // 拖拽元素
-    mousedownForElement(e, element) {
-      const pos = element.commonStyle
+    mousedownForElement(e) {
+      const pos = { ...this.position }
       let startX = e.clientX
       let startY = e.clientY
       let startTop = pos.top
@@ -127,7 +133,7 @@ export default {
       this.setEditingElement(this.element)
       this.mousedownForElement(e, this.element)
     },
-    ...mapActions('element', ['setEditingElement'])
+    ...mapActions('element', ['setEditingElement', 'setElementPosition'])
   },
   render() {
     return (
@@ -135,7 +141,7 @@ export default {
         onClick={this.handlerWrapperClick}
         onMousedown={this.handleMousedown}
         // extend plugin style
-        style={{ ...this.element.getStyle(), position: 'absolute' }}
+        style={this.element.getStyle('absolute')}
       >
         {this.active &&
           points.map(point => {

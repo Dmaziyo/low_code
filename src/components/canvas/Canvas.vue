@@ -10,7 +10,7 @@
       v-for="(element,index) in elements"
       :key="index"
       :element="element"
-      :editingElement="editingElement"
+      :defaultPosition="element.commonStyle"
       :active="editingElement===element"
       :handleElementMoveProp="handleElementMove"
     >
@@ -133,9 +133,11 @@ export default {
     /**
      * 元素移动时，计算并生成辅助线
      */
-    handleElementMove({ top, left }) {
-      this.calcX(left)
-      this.calcY(top)
+    handleElementMove(pos) {
+      // 移动元素位置
+      this.setElementPosition(pos)
+      this.calcX(pos.left)
+      this.calcY(pos.top)
     },
     bindContextMenu(e) {
       e.preventDefault() // 阻止默认右键菜单显示
