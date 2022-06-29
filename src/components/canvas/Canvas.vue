@@ -80,9 +80,13 @@ export default {
     },
     // 画辅助线
     drawVLine(newLeft) {
+      // 添加吸附效果
+      this.setElementPosition({ left: newLeft })
       this.vLines = [newLeft + 'px']
     },
     drawHLine(newTop) {
+      // 添加吸附效果
+      this.setElementPosition({ top: newTop })
       this.hLines = [newTop + 'px']
     },
     //  计算是否交叠
@@ -154,7 +158,7 @@ export default {
       }
       this.hideContextMenu()
     },
-    ...mapActions('element', ['setEditingElement'])
+    ...mapActions('element', ['setEditingElement', 'setElementPosition', 'setElementShape'])
   }
 }
 </script>

@@ -10,6 +10,12 @@ const getters = {}
 const actions = {
   setEditingElement({ commit }, payload) {
     commit('setEditingElement', payload)
+  },
+  setElementPosition({ commit }, payload) {
+    commit('setElementPosition', payload)
+  },
+  setElementShape({ commit }, payload) {
+    commit('setElementShape', payload)
   }
 }
 
@@ -17,6 +23,12 @@ const actions = {
 const mutations = {
   setEditingElement(state, payload) {
     state.editingElement = payload
+  },
+  setElementCommonStyle(state, commonStyle) {
+    state.editingElement.commonStyle = {
+      ...state.editingElement.commonStyle,
+      ...commonStyle
+    }
   }
 }
 
