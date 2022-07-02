@@ -141,7 +141,6 @@ export default {
         onClick={this.handlerWrapperClick}
         onMousedown={this.handleMousedown}
         // extend plugin style
-        style={this.element.getStyle('absolute')}
       >
         {this.active &&
           points.map(point => {

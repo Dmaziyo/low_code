@@ -10,6 +10,7 @@
       v-for="(element,index) in elements"
       :key="index"
       :element="element"
+      :style="element.getStyle('absolute')"
       :defaultPosition="element.commonStyle"
       :active="editingElement===element"
       :handleElementMoveProp="handleElementMove"
@@ -17,7 +18,7 @@
       <component
         class="element-on-edit-canvas"
         :is="element.name"
-        :style="element.getStyle()"
+        :style="{height:'100%',width:'100%'}"
         @input="({value,pluginName})=>{
           if(pluginName==='lbp-text'){
             element.pluginProps.text=value

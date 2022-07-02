@@ -33,6 +33,7 @@ export default {
             },
             on: {
               change(e) {
+                // 自定义组件可能会直接传值
                 editingElement.pluginProps[propKey] = e.target ? e.target.value : e
               }
             }
