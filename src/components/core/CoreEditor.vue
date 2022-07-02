@@ -21,19 +21,15 @@
     </a-layout-header>
     <a-layout>
       <a-layout-sider width="160" style="background: #fff">
-        <a-menu :default-selected-keys="['2']" style="height:100%">
-          <a-menu-item key="pluginList">
-            <a-icon type="user" />
-            <span>组件列表</span>
-          </a-menu-item>
-          <a-menu-item key="2">
-            <a-icon type="video-camera" />
-
-            <span>页面管理</span>
-          </a-menu-item>
-          <a-menu-item key="3">
-            <a-icon type="upload" />
-            <span>更多模板</span>
+        <a-menu
+          @select="val=>{this.activeMenuKey=val.key}"
+          mode="inline"
+          :default-selected-keys="['pluginList']"
+          style="height:100%,borderRight:1"
+        >
+          <a-menu-item v-for="menu in sidebarMenus" :key="menu.value">
+            <a-icon :type="menu.antIcon" />
+            <span>{{menu.label}}</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
@@ -111,7 +107,24 @@ export default {
     return {
       pages: [],
       // elements: [],
-
+      activeMenuKey: 'pluginList',
+      sidebarMenus: [
+        {
+          label: '组件列表',
+          value: 'pluginList',
+          antIcon: 'user'
+        },
+        {
+          label: '页面管理',
+          value: 'pageManagement',
+          antIcon: 'copy'
+        },
+        {
+          label: '免费模板',
+          value: 'freeTemplate',
+          antIcon: 'appstore'
+        }
+      ],
       isPreviewMode: false
     }
   },
