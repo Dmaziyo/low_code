@@ -23,12 +23,33 @@ class Element {
     this.uuid = +new Date()
     this.editorConfig = ele.editorConfig || {}
     this.commonStyle = {}
-    this.init()
+    // 删除init是因为如果点击复制会覆盖当前元素的样式
+    this.pluginProps = ele.pluginProps || this.getDefaultPluginProps()
+    this.commonStyle = ele.commonStyle || this.getDefaultCommonStyle()
   }
+  // 获取默认通用样式
+  getDefaultCommonStyle() {
+    return { ...defaultProps }
+  }
+  // 获取默认插件样式
+  getDefaultPluginProps() {
+    const propConf = this.editorConfig.propConfig
+    const pluginProps = {}
+    Object.keys(propConf).forEach(key => {
+      if (key === 'name') {
+        console.warn('Please do not use {name} as plugin prop')
+        return
+      }
+      pluginProps[key] = propConf[key].defaultPropValue
+    })
+    return pluginProps
+  }
+
   getStyle(position = 'static') {
     const pluginProps = this.pluginProps
     const commonStyle = this.commonStyle
     let style = {
+      // 因为pluginProp没有top和left,所以修改的是commonStyle
       top: `${pluginProps.top || commonStyle.top}px`,
       left: `${pluginProps.left || commonStyle.left}px`,
       width: `${pluginProps.width || commonStyle.width}px`,
@@ -45,22 +66,18 @@ class Element {
   }
   getClass() {}
   getData() {}
-  // 初始化默认样式 & 默认编辑器样式
-  init() {
-    const commonStyle = this.commonStyle
-    Object.keys(defaultProps).forEach(key => {
-      commonStyle[key] = defaultProps[key]
-    })
-    // init prop of plugin
-    this.pluginProps = {}
-    const propConf = this.editorConfig.propConfig
-    Object.keys(propConf).forEach(key => {
-      // 因为this.name与组件名称绑定了
-      if (key === 'name') {
-        console.warn("please don't use name as  plugin prop")
-        return
+  // 复制plugin
+  clone() {
+    return new Element({
+      name: this.name,
+      editorConfig: this.editorConfig,
+      // Deep Clone
+      pluginProps: JSON.parse(JSON.stringify(this.pluginProps)),
+      commonStyle: {
+        ...this.commonStyle,
+        top: this.commonStyle.top + 20,
+        left: this.commonStyle.left + 20
       }
-      this.pluginProps[key] = propConf[key].defaultPropValue
     })
   }
 }

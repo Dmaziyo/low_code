@@ -93,13 +93,11 @@
  */
 // 组件列表
 
-import Element from '@/components/core/models/element.js'
-
 import EditCanvas from '@/components/canvas/Canvas.vue'
 import PreView from '@/components/canvas/PreView.vue'
 import PluginListPanel from '@/components/shortcut-panel/PluginListPanel.vue'
 import EditorPanel from '@/components/edit-panel/EditorPanel.vue'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import Vue from 'vue'
 export default {
   name: 'Editor',
@@ -112,15 +110,19 @@ export default {
   data() {
     return {
       pages: [],
-      elements: [],
+      // elements: [],
 
       isPreviewMode: false
     }
   },
   computed: {
-    ...mapState(['editingElement'])
+    ...mapState('element', {
+      editingElement: state => state.editingElement,
+      elements: state => state.elementsOfCurrentPage
+    })
   },
   methods: {
+    ...mapActions('element', ['elementManager']),
     // 获取组件编辑器配置
     getEditorConfig(pluginName) {
       //组件构造器
@@ -134,8 +136,11 @@ export default {
       console.log(name)
       const zindex = this.elements.length + 1
       const editorConfig = this.getEditorConfig(name)
-      console.log(editorConfig)
-      this.elements.push(new Element({ name, zindex, editorConfig }))
+      // 添加新元素
+      this.elementManager({
+        type: 'add',
+        value: { name, zindex, editorConfig }
+      })
     }
   },
   created() {

@@ -43,12 +43,13 @@
         zIndex:999
         }"
     >
-      <a-menu-item data-command="copyEditingElement">复制</a-menu-item>
-      <a-menu-item data-command="deleteEditingElement">删除</a-menu-item>
-      <a-menu-item data-command="bringLayer2Front">置顶</a-menu-item>
-      <a-menu-item data-command="bringLayer2End">置地</a-menu-item>
-      <a-menu-item data-command="addLayerZindex">上移</a-menu-item>
-      <a-menu-item data-command="subtractLayerZindex">下移</a-menu-item>
+      <!-- Menu bar -->
+      <a-menu-item
+        v-for="option in contextMenuOptions"
+        :key="option.value"
+        :data-command="option.value"
+        @click="elementManager({type:option.value})"
+      >{{option.label}}</a-menu-item>
     </a-menu>
   </div>
 </template>
@@ -64,7 +65,34 @@ export default {
     // 数组用于动态显示
     vLines: [],
     hLines: [],
-    contextmenuPos: []
+    // 设置menu坐标出现位置
+    contextmenuPos: [],
+    contextMenuOptions: [
+      {
+        label: '复制',
+        value: 'copy'
+      },
+      {
+        label: '删除',
+        value: 'delete'
+      },
+      {
+        label: '置顶',
+        value: 'bring2Top'
+      },
+      {
+        label: '置底',
+        value: 'bring2Bottom'
+      },
+      {
+        label: '上移',
+        value: 'addZindex'
+      },
+      {
+        label: '下移',
+        value: 'minusZindex'
+      }
+    ]
   }),
   props: {
     elements: {
@@ -145,7 +173,6 @@ export default {
       // 判断是否为右键plugin
       if (e.target.classList.contains('element-on-edit-canvas') || e.target.parentElement.classList.contains('element-on-edit-canvas')) {
         const { x, y } = this.$el.getBoundingClientRect()
-        console.log('111111111111')
         this.contextmenuPos = [e.clientX - x, e.clientY - y]
       } else {
         this.hideContextMenu()
@@ -161,7 +188,7 @@ export default {
       }
       this.hideContextMenu()
     },
-    ...mapActions('element', ['setEditingElement', 'setElementPosition', 'setElementShape'])
+    ...mapActions('element', ['setEditingElement', 'setElementPosition', 'setElementShape', 'elementManager'])
   }
 }
 </script>

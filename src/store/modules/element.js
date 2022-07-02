@@ -1,6 +1,8 @@
+import Element from '@/components/core/models/element.js'
 // initial state
 const state = {
-  editingElement: null
+  editingElement: null,
+  elementsOfCurrentPage: []
 }
 
 // getters
@@ -16,6 +18,9 @@ const actions = {
   },
   setElementShape({ commit }, payload) {
     commit('setElementCommonStyle', payload)
+  },
+  elementManager({ commit }, payload) {
+    commit('elementManager', payload)
   }
 }
 
@@ -29,6 +34,24 @@ const mutations = {
     state.editingElement.commonStyle = {
       ...state.editingElement.commonStyle,
       ...payload
+    }
+  },
+  // menuClick管理
+  elementManager(state, { type, value }) {
+    switch (type) {
+      // 新建
+      case 'add': {
+        const element = new Element(value)
+        state.elementsOfCurrentPage.push(element)
+        break
+      }
+      case 'copy': {
+        // 复制
+        console.log(state.editingElement)
+        state.elementsOfCurrentPage.push(state.editingElement.clone())
+        break
+      }
+      default:
     }
   }
 }
