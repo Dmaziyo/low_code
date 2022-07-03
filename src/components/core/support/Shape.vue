@@ -47,6 +47,9 @@ export default {
         }
       }
       const style = {
+        // make point falls on the border
+        marginLeft: hasL || hasR ? '-3px' : 0,
+        marginTop: hasT || hasB ? '-3px' : 0,
         left: `${newLeft + (isWrapElement ? 0 : left)}px`,
         top: `${newTop + (isWrapElement ? 0 : top)}px`,
         cursor:
