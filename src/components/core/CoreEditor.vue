@@ -8,6 +8,28 @@
         :default-selected-keys="['2']"
         style="line-height:64px;float:right;background:transparent"
       >
+        <a-menu-item key="4" class="transparent-bg">
+          <a-button-group>
+            <a-button
+              class="transparent-bg"
+              style="color:white"
+              type="dashed"
+              size="small"
+              @click="unDo"
+            >
+              <i class="shortcut-icon fa fa-mail-reply" aria-hidden="true" />撤销
+            </a-button>
+            <a-button
+              class="transparent-bg"
+              style="color:white"
+              type="dashed"
+              size="small"
+              @click="reDo"
+            >
+              <i class="shortcut-icon fa fa-mail-forward" aria-hidden="true" />重做
+            </a-button>
+          </a-button-group>
+        </a-menu-item>
         <a-menu-item key="1" class="transparent-bg">
           <a-button type="primary" size="small">预览</a-button>
         </a-menu-item>
@@ -93,6 +115,7 @@ import EditCanvas from '@/components/canvas/Canvas.vue'
 import PreView from '@/components/canvas/PreView.vue'
 import PluginListPanel from '@/components/shortcut-panel/PluginListPanel.vue'
 import EditorPanel from '@/components/edit-panel/EditorPanel.vue'
+import undoRedoHistory from '@/store/plugins/undo-redo/History.js'
 import { mapActions, mapState } from 'vuex'
 import Vue from 'vue'
 export default {
@@ -154,6 +177,12 @@ export default {
         type: 'add',
         value: { name, zindex, editorConfig }
       })
+    },
+    unDo() {
+      undoRedoHistory.undo()
+    },
+    reDo() {
+      undoRedoHistory.redo()
     }
   },
   created() {

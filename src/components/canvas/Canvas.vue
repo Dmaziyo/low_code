@@ -14,6 +14,8 @@
       :defaultPosition="element.commonStyle"
       :active="editingElement===element"
       :handleElementMoveProp="handleElementMove"
+      :handleElementMouseUpProp="recordElementRect"
+      :handlePointMouseUpProp="recordElementRect"
     >
       <component
         class="element-on-edit-canvas"
@@ -188,7 +190,7 @@ export default {
       }
       this.hideContextMenu()
     },
-    ...mapActions('element', ['setEditingElement', 'setElementPosition', 'setElementShape', 'elementManager'])
+    ...mapActions('element', ['setEditingElement', 'setElementPosition', 'setElementShape', 'elementManager', 'recordElementRect'])
   }
 }
 </script>

@@ -21,6 +21,10 @@ const actions = {
   },
   elementManager({ commit }, payload) {
     commit('elementManager', payload)
+  },
+  // 此阶段是没有用的！
+  recordElementRect({ commit }, payload = {}) {
+    commit('recordRect', payload)
   }
 }
 
@@ -64,7 +68,9 @@ const mutations = {
       }
       default:
     }
-  }
+  },
+  // 此阶段毫无用处
+  recordRect() {}
 }
 
 export default {
