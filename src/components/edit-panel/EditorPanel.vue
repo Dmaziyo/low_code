@@ -22,11 +22,12 @@ export default {
     this.mixinPluginCustomComponents2Editor()
     const propsConfig = editingElement.editorConfig.propConfig
     return (
-      <a-form ref="form" label-width="100px" size="mini" label-position="left">
+      <a-form ref="form" label-width="100px" id="props-edit-form" size="mini" label-position="left">
         {Object.keys(propsConfig).map(propKey => {
           const item = propsConfig[propKey]
           console.log(item.type)
           const data = {
+            style: { width: '100%' },
             props: {
               ...item.prop,
               value: editingElement.pluginProps[propKey] || item.defaultPropValue
@@ -38,7 +39,12 @@ export default {
               }
             }
           }
-          return <a-form-item label={item.label}>{h(item.type, data)}</a-form-item>
+          //实现并排显示
+          return (
+            <a-form-item label={item.label} labelCol={{ span: 8 }} wrapperCol={{ span: 14, offset: 2 }}>
+              {h(item.type, data)}
+            </a-form-item>
+          )
         })}
       </a-form>
     )

@@ -47,7 +47,7 @@
           @select="val=>{this.activeMenuKey=val.key}"
           mode="inline"
           :default-selected-keys="['pluginList']"
-          style="height:100%,borderRight:1"
+          style="height:100%;borderRight:1"
         >
           <a-menu-item v-for="menu in sidebarMenus" :key="menu.value">
             <a-icon :type="menu.antIcon" />
@@ -72,24 +72,18 @@
           </div>
         </a-layout-content>
 
-        <a-layout-sider width="240" theme="light" style="background:#fff; padding:0 12px">
-          <a-tabs type="card" style="height:100% ;overflow-y:auto">
+        <!-- 修改宽度和间隔 -->
+        <a-layout-sider width="340" theme="light" style="background:#fff; padding:0 12px">
+          <a-tabs type="card" style="height:100% ;overflow-y:auto" :tabBarGutter="10">
             <a-tab-pane key="属性">
               <span slot="tab">
                 <a-icon type="apple" />属性
               </span>
               <editor-panel :editing-element="editingElement"></editor-panel>
             </a-tab-pane>
-            <a-tab-pane key="动画" tab="动画">
-              <span slot="tab">
-                <a-icon type="apple" />动画
-              </span>
-            </a-tab-pane>
-            <a-tab-pane key="动作" tab="动作">
-              <span slot="tab">
-                <a-icon type="apple" />动作
-              </span>
-            </a-tab-pane>
+            <a-tab-pane key="动画" tab="动画">动画</a-tab-pane>
+            <a-tab-pane key="动作" tab="动作">动作</a-tab-pane>
+            <a-tab-pane key="脚本" tab="脚本">脚本</a-tab-pane>
           </a-tabs>
         </a-layout-sider>
       </a-layout>
@@ -135,12 +129,12 @@ export default {
         {
           label: '组件列表',
           value: 'pluginList',
-          antIcon: 'user'
+          antIcon: 'bars'
         },
         {
           label: '页面管理',
           value: 'pageManagement',
-          antIcon: 'copy'
+          antIcon: 'snippets'
         },
         {
           label: '免费模板',

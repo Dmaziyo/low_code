@@ -1,59 +1,65 @@
-#luban-layout{
-    .logo {
-        width: 120px;
-        height: 31px;
-        // background: rgba(255,255,255,.2);
-        margin: 16px 28px 16px 0;
-        float: left;
-      
-        line-height: 31px;
-        text-align: center;
-        color: white;
-        font-size: 16px;
-      }
-    
-      .transparent-bg{
-          background: transparent !important;
-      }
+#luban-layout {
+  .logo {
+    width: 120px;
+    height: 31px;
+    // background: rgba(255,255,255,.2);
+    margin: 16px 28px 16px 0;
+    float: left;
 
-      .no-border{
-          border: none !important;
-      }
-      .shortcut-button{
-          width: 100%;
-          height: 40px;
-      }
-    .canvas-editor-wrapper{
-         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZAgMAAAC5h23wAAAAAXNSR0IB2cksfwAAAAlQTFRF9fX18PDwAAAABQ8/pgAAAAN0Uk5T/yIA41y2EwAAABhJREFUeJxjYIAC0VAQcGCQWgUCDUONBgDH8Fwzu33LswAAAABJRU5ErkJggg==');
- 
-        .element--editing{
-            outline: 1px dashed #70c0ff !important;
-        }
+    line-height: 31px;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+  }
 
-        // 控制放大缩小的点
-        .shape__scale-point{
-            position: absolute;
-            background:#fff;
-            border: 1px solid #70c0ff;
-            width: 6px;
-            height: 6px;
-            z-index: 1;
-            border-radius: 50%;
-        }
-        // TODO #:写一个辅助线类：base-line
-        .v-line{
-            position: absolute;
-            height: 100vh;
-            width: 1px;
-            top: 0;
-            background-color: #94f5ff;
-        }
-        .h-line{
-            position:absolute;
-            height: 1px;
-            left: 0;
-            width: 100vw;
-            background-color: #94f5ff;
-        }
+  .transparent-bg {
+    background: transparent !important;
+  }
+
+  .no-border {
+    border: none !important;
+  }
+  .shortcut-button {
+    width: 100%;
+    height: 40px;
+  }
+  .canvas-editor-wrapper {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZAgMAAAC5h23wAAAAAXNSR0IB2cksfwAAAAlQTFRF9fX18PDwAAAABQ8/pgAAAAN0Uk5T/yIA41y2EwAAABhJREFUeJxjYIAC0VAQcGCQWgUCDUONBgDH8Fwzu33LswAAAABJRU5ErkJggg==');
+
+    .element--editing {
+      outline: 1px dashed #70c0ff !important;
     }
+
+    // 控制放大缩小的点
+    .shape__scale-point {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #70c0ff;
+      width: 6px;
+      height: 6px;
+      z-index: 1;
+      border-radius: 50%;
+    }
+    // TODO #:写一个辅助线类：base-line
+    .v-line {
+      position: absolute;
+      height: 100vh;
+      width: 1px;
+      top: 0;
+      background-color: #94f5ff;
+    }
+    .h-line {
+      position: absolute;
+      height: 1px;
+      left: 0;
+      width: 100vw;
+      background-color: #94f5ff;
+    }
+  }
+  //   修改间隔
+  #props-edit-form {
+    .ant-form-item {
+      margin-bottom: 12px;
+    }
+  }
 }
