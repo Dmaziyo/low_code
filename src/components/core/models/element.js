@@ -26,6 +26,8 @@ class Element {
     // 删除init是因为如果点击复制会覆盖当前元素的样式
     this.pluginProps = ele.pluginProps || this.getDefaultPluginProps()
     this.commonStyle = ele.commonStyle || this.getDefaultCommonStyle()
+    // 添加了事件属性
+    this.events = []
   }
   // 获取默认通用样式
   getDefaultCommonStyle() {
