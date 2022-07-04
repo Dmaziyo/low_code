@@ -152,6 +152,7 @@ export default {
       <div
         onClick={this.handlerWrapperClick}
         onMousedown={this.handleMousedown}
+        style={{ outline: this.active ? '1px dashed #bcbcbc' : '' }}
         // extend plugin style
       >
         {this.active &&
