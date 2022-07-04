@@ -74,7 +74,12 @@
 
         <!-- 修改宽度和间隔 -->
         <a-layout-sider width="340" theme="light" style="background:#fff; padding:0 12px">
-          <a-tabs type="card" style="height:100% ;overflow-y:auto" :tabBarGutter="10">
+          <a-tabs
+            type="card"
+            style="height:100% ;overflow-y:auto"
+            :tabBarGutter="10"
+            @change="(activeTabKey)=>{this.activeTabKey=activeTabKey}"
+          >
             <a-tab-pane key="属性">
               <span slot="tab">
                 <a-icon type="apple" />属性
@@ -82,8 +87,12 @@
               <editor-panel :editing-element="editingElement"></editor-panel>
             </a-tab-pane>
             <a-tab-pane key="动画" tab="动画">动画</a-tab-pane>
-            <a-tab-pane key="动作" tab="动作">动作</a-tab-pane>
-            <a-tab-pane key="脚本" tab="脚本">脚本</a-tab-pane>
+            <a-tab-pane key="动作" tab="动作">
+              <action-editor></action-editor>
+            </a-tab-pane>
+            <a-tab-pane key="脚本" tab="脚本">
+              <script-editor></script-editor>
+            </a-tab-pane>
           </a-tabs>
         </a-layout-sider>
       </a-layout>
@@ -108,6 +117,8 @@
 import EditCanvas from '@/components/canvas/Canvas.vue'
 import PreView from '@/components/canvas/PreView.vue'
 import PluginListPanel from '@/components/shortcut-panel/PluginListPanel.vue'
+import ScriptEditor from '@/components/edit-panel/ScriptEditor.vue'
+import ActionEditor from '@/components/edit-panel/ActionEditor.vue'
 import EditorPanel from '@/components/edit-panel/EditorPanel.vue'
 import undoRedoHistory from '@/store/plugins/undo-redo/History.js'
 import { mapActions, mapState } from 'vuex'
@@ -118,7 +129,9 @@ export default {
     EditorPanel,
     EditCanvas,
     PluginListPanel,
-    PreView
+    PreView,
+    ScriptEditor,
+    ActionEditor
   },
   data() {
     return {
@@ -142,7 +155,8 @@ export default {
           antIcon: 'appstore'
         }
       ],
-      isPreviewMode: false
+      isPreviewMode: false,
+      activeTabKey: '属性'
     }
   },
   computed: {
