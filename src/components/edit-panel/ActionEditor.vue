@@ -12,10 +12,10 @@ export default {
     return {}
   },
   computed: {
-    ...mapState('element', ['editingElement'])
+    ...mapState('editor', ['editingElement'])
   },
   methods: {
-    ...mapActions('element', ['setEditingElement'])
+    ...mapActions('editor', ['setEditingElement'])
   },
   created() {}
 }

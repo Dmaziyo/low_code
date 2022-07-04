@@ -44,10 +44,10 @@ export default {
     }
   },
   computed: {
-    ...mapState('element', ['editingElement'])
+    ...mapState('editor', ['editingElement'])
   },
   methods: {
-    ...mapActions('element', ['setEditingElement']),
+    ...mapActions('editor', ['setEditingElement']),
     mixinScript() {}
   }
 }

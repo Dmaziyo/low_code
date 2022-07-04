@@ -34,7 +34,7 @@
           <a-button type="primary" size="small">预览</a-button>
         </a-menu-item>
         <a-menu-item key="2" class="transparent-bg">
-          <a-button size="small">保存</a-button>
+          <a-button size="small" @click="saveWork">保存</a-button>
         </a-menu-item>
         <a-menu-item key="3" class="transparent-bg">
           <a-button size="small">发布</a-button>
@@ -135,8 +135,6 @@ export default {
   },
   data() {
     return {
-      pages: [],
-      // elements: [],
       activeMenuKey: 'pluginList',
       sidebarMenus: [
         {
@@ -160,13 +158,14 @@ export default {
     }
   },
   computed: {
-    ...mapState('element', {
+    ...mapState('editor', {
       editingElement: state => state.editingElement,
-      elements: state => state.elementsOfCurrentPage
+      elements: state => state.editingPage.elements,
+      pages: state => state.work.pages
     })
   },
   methods: {
-    ...mapActions('element', ['elementManager']),
+    ...mapActions('editor', ['elementManager', 'saveWork', 'createWork']),
     // 获取组件编辑器配置
     getEditorConfig(pluginName) {
       //组件构造器
@@ -194,7 +193,13 @@ export default {
     }
   },
   created() {
-    this.parentD = this.$parent
+    let workId = this.$route.query.workId
+    if (workId) {
+      // 回调
+      // this.$store.dispatch('getWorkById',workId)
+    } else {
+      this.createWork()
+    }
   }
 }
 </script>

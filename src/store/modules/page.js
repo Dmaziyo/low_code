@@ -1,37 +1,33 @@
 import Page from '../../components/core/models/page'
 
-const state = {
-  editingPage: { pages: [] },
-  pagesOfCurrentWork: []
-}
-
 // getters
-const getters = {}
+export const getters = {}
 
 // actions
-const actions = {
-  setEditing({ commit }, payload) {
-    commit('setEditing', payload)
+export const actions = {
+  setEditingPage({ commit }, payload) {
+    commit('setEditingPage', payload)
   },
-  manager({ commit }, payload) {
-    commit('manager', payload)
+  pageManager({ commit }, payload) {
+    commit('pageManager', payload)
   }
 }
 
 // mutations
-const mutations = {
-  setEditing(state, payload) {
+export const mutations = {
+  setEditingPage(state, payload) {
+    payload = payload || state.work.pages[0]
     state.editingPage = payload
   },
-  manager(state, { type, value }) {
+  pageManager(state, { type, value }) {
     switch (type) {
       case 'add': {
         const page = new Page(value)
-        state.pagesOfCurrentWork.push(page)
+        state.work.pages.push(page)
         break
       }
       case 'copy': {
-        state.pagesOfCurrentWork.push(state.editingPage.clone())
+        state.work.pages.push(state.editingPage.clone())
         break
       }
       case 'delete': {
@@ -40,18 +36,11 @@ const mutations = {
         if (index !== -1) {
           let newPages = pagesOfCurrentWork.slice()
           newPages.splice(index, 1)
-          state.pagesOfCurrentWork = newPages
+          state.work.pages = newPages
         }
         break
       }
       default:
     }
   }
-}
-export default {
-  namespaced: true,
-  state,
-  getters,
-  actions,
-  mutations
 }

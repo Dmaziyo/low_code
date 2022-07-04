@@ -3,7 +3,7 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapState('element', ['editingElement'])
+    ...mapState('editor', ['editingElement'])
   },
   methods: {
     // Register custom component
@@ -14,7 +14,7 @@ export default {
         this.$options.components[key] = components[key]
       }
     },
-    ...mapActions('element', ['setEditingElement'])
+    ...mapActions('editor', ['setEditingElement'])
   },
   render(h) {
     if (!this.editingElement) return <span>请先选择一个元素</span>

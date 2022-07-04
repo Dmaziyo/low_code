@@ -103,7 +103,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('element', ['editingElement'])
+    ...mapState('editor', ['editingElement'])
   },
   methods: {
     clickEle(element) {
@@ -190,7 +190,7 @@ export default {
       }
       this.hideContextMenu()
     },
-    ...mapActions('element', ['setEditingElement', 'setElementPosition', 'setElementShape', 'elementManager', 'recordElementRect'])
+    ...mapActions('editor', ['setEditingElement', 'setElementPosition', 'setElementShape', 'elementManager', 'recordElementRect'])
   }
 }
 </script>

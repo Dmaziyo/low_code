@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash'
 import undoRedoHistory from './History'
-const unRecordHistoryMutationTypes = ['element/setElementCommonStyle']
+const unRecordHistoryMutationTypes = ['editor/setElementCommonStyle']
 
 // exposes hooks for each mutation
 const undoRedoPlugin = store => {
@@ -12,7 +12,7 @@ const undoRedoPlugin = store => {
   store.subscribe((mutation, state) => {
     // called after every mutation.
     const { type } = mutation
-    // 不会存储样式
+    // 修改Types，因为样式的撤销很麻烦，我们只需要注重plugin的位置和出现顺序即可
     if (unRecordHistoryMutationTypes.includes(type)) return
 
     // 复制当前的state并且添加至history中

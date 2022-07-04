@@ -17,10 +17,12 @@ class Work {
     this.work = work
 
     this.id = work.id
-    this.coverImageUrl = ''
+    this.key = work.key
+    this.cover_image_url = ''
+    this.project_id = 1
     this.isPublish = false
-    this.createTime = +new Date()
-    this.updateTime = +new Date()
+    this.create_time = +new Date()
+    this.update_time = +new Date()
   }
 }
 

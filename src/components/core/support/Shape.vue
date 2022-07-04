@@ -145,7 +145,7 @@ export default {
       this.setEditingElement(this.element)
       this.mousedownForElement(e, this.element)
     },
-    ...mapActions('element', ['setEditingElement', 'setElementPosition'])
+    ...mapActions('editor', ['setEditingElement', 'setElementPosition'])
   },
   render() {
     return (
