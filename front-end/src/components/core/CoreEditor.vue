@@ -56,7 +56,13 @@
         </a-menu>
       </a-layout-sider>
       <a-layout-sider width="240" theme="light" style="background:#fff;padding:0 12px">
-        <plugin-list-panel @Eclone="clone" :visible-plugin-list="visiblePluginList"></plugin-list-panel>
+        <!-- 根据activeKey来切换选中值 -->
+        <plugin-list-panel
+          v-if="this.sidebarMenus[0].value===this.activeMenuKey"
+          @Eclone="clone"
+          :visible-plugin-list="visiblePluginList"
+        ></plugin-list-panel>
+        <page-list-panel v-else-if="this.sidebarMenus[1].value===this.activeMenuKey"></page-list-panel>
       </a-layout-sider>
       <a-layout style="padding:0 24px 24px">
         <a-layout-content style="padding:24px;margin:0,min-height:280px">
@@ -120,6 +126,7 @@ import PluginListPanel from '@/components/shortcut-panel/PluginListPanel.vue'
 import ScriptEditor from '@/components/edit-panel/ScriptEditor.vue'
 import ActionEditor from '@/components/edit-panel/ActionEditor.vue'
 import EditorPanel from '@/components/edit-panel/EditorPanel.vue'
+import PageListPanel from '@/components/page-panel/page-panel.vue'
 import undoRedoHistory from '@/store/plugins/undo-redo/History.js'
 import { mapActions, mapState } from 'vuex'
 import Vue from 'vue'
@@ -131,7 +138,8 @@ export default {
     PluginListPanel,
     PreView,
     ScriptEditor,
-    ActionEditor
+    ActionEditor,
+    PageListPanel
   },
   data() {
     return {
@@ -165,7 +173,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions('editor', ['elementManager', 'saveWork', 'createWork']),
+    ...mapActions('editor', ['elementManager', 'pageManager', 'saveWork', 'createWork']),
     // 获取组件编辑器配置
     getEditorConfig(pluginName) {
       //组件构造器
