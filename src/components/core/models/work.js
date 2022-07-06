@@ -16,10 +16,10 @@ class Work {
     this.type = work.type || 'h5'
     this.work = work
 
-    this.id = work.id
-    this.key = work.key
+    // this.id = work.id
+    // this.key = work.key
     this.cover_image_url = ''
-    this.project_id = 1
+    // this.project_id = 1
     this.isPublish = false
     this.create_time = +new Date()
     this.update_time = +new Date()
