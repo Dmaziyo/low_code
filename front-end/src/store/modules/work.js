@@ -1,5 +1,5 @@
 import Work from '@/components/core/models/work.js'
-
+import strapi from '../../utils/strapi'
 export const actions = {
   // it's useless for now
   // 预览作品
@@ -10,9 +10,8 @@ export const actions = {
     commit('previewWork', payload)
   },
   saveWork({ commit, state }, payload = {}) {
-    console.log(commit)
-    console.log(state)
-    console.log(payload)
+    console.log(commit, payload)
+    strapi.createEntry('works', state.work)
   }
 }
 
