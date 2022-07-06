@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "works",
   "info": {
-    "name": "Work"
+    "name": "Work",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -12,10 +13,13 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "default": "default title"
     },
     "description": {
-      "type": "richtext"
+      "type": "richtext",
+      "default": "default description"
     },
     "cover_image_url": {
       "type": "string"
