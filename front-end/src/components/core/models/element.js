@@ -21,10 +21,10 @@ class Element {
     // 这个this是新建立的对象了
     this.name = ele.name
     this.uuid = +new Date()
-    this.editorConfig = ele.editorConfig || {}
+
     this.commonStyle = {}
-    // 删除init是因为如果点击复制会覆盖当前元素的样式
-    this.pluginProps = ele.pluginProps || this.getDefaultPluginProps()
+    // 这里优先获取ele.pluginProps实现属性的的复制
+    this.pluginProps = ele.pluginProps || this.getDefaultPluginProps(ele.editorConfig || {})
     this.commonStyle = ele.commonStyle || this.getDefaultCommonStyle()
     // 添加了事件属性
     this.events = []
@@ -34,8 +34,8 @@ class Element {
     return { ...defaultProps }
   }
   // 获取默认插件样式
-  getDefaultPluginProps() {
-    const propConf = this.editorConfig.propConfig
+  getDefaultPluginProps(editorConfig) {
+    const propConf = editorConfig.propConfig
     const pluginProps = {}
     Object.keys(propConf).forEach(key => {
       if (key === 'name') {
@@ -72,7 +72,7 @@ class Element {
   clone() {
     return new Element({
       name: this.name,
-      editorConfig: this.editorConfig,
+      // 删除是因为这这个是通用配置,而不是单独配置
       // Deep Clone
       pluginProps: JSON.parse(JSON.stringify(this.pluginProps)),
       commonStyle: {

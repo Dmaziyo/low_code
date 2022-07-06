@@ -3,12 +3,14 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapState('editor', ['editingElement'])
+    ...mapState('editor', ['editingElement', 'editingElementEditorConfig'])
   },
   methods: {
-    // Register custom component
+    /**
+     * 将插件的自定义增强编辑器注入属性面板中
+     */
     mixinPluginCustomComponents2Editor() {
-      const { components } = this.editingElement.editorConfig
+      const { components } = this.editingElementEditorConfig
       for (const key in components) {
         if (this.$options.components[key]) return
         this.$options.components[key] = components[key]
@@ -20,7 +22,8 @@ export default {
     if (!this.editingElement) return <span>请先选择一个元素</span>
     const editingElement = this.editingElement
     this.mixinPluginCustomComponents2Editor()
-    const propsConfig = editingElement.editorConfig.propConfig
+    // 直接从state中获取propsConfig
+    const propsConfig = this.editingElementEditorConfig.propConfig
     return (
       <a-form ref="form" label-width="100px" id="props-edit-form" size="mini" label-position="left">
         {Object.keys(propsConfig).map(propKey => {

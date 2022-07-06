@@ -1,5 +1,6 @@
+
 <template>
-  <!-- PreView -->
+  <!-- TODO extract preview card used for page list -->
   <div style="{height:100%}">
     <component
       v-for="(element,index) in elements"

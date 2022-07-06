@@ -22,7 +22,9 @@ import { actions as workActions, mutations as workMutations } from '@/store/modu
 const state = {
   work: new Work(),
   editingPage: { elements: [] },
-  editingElement: null
+  editingElement: null,
+  // 将elementEditorConfig从model中抽离出来
+  editingElementEditorConfig: null
 }
 // getters
 const getters = {}

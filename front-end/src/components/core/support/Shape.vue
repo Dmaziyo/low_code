@@ -19,6 +19,7 @@ export default {
     'handlePointMouseUpProp'
   ],
   computed: {
+    // 位置是commonStyle,所以修改的是commonStyle的样式
     position() {
       return { ...this.defaultPosition }
     }

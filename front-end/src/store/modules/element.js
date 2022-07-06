@@ -1,9 +1,12 @@
 import Element from '@/components/core/models/element.js'
-
+import { getEditorConfigForEditingElement } from '../../utils/element'
 //actions
 export const actions = {
   setEditingElement({ commit }, payload) {
     commit('setEditingElement', payload)
+    // 在选中的时候就获取EditorConfig,然后将值传过去
+    const vm = payload && payload.name ? getEditorConfigForEditingElement(payload.name) : null
+    commit('setEditingElementEditorConfig', vm)
   },
   setElementPosition({ commit }, payload) {
     commit('setElementCommonStyle', payload)
@@ -24,6 +27,10 @@ export const actions = {
 export const mutations = {
   setEditingElement(state, payload) {
     state.editingElement = payload
+  },
+  setEditingElementEditorConfig(state, payload) {
+    // 将ElementEditorConfig赋给state中
+    state.editingElementEditorConfig = payload
   },
   setElementCommonStyle(state, payload) {
     console.log(state.editingElement)

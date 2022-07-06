@@ -128,8 +128,8 @@ import ActionEditor from '@/components/edit-panel/ActionEditor.vue'
 import EditorPanel from '@/components/edit-panel/EditorPanel.vue'
 import PageListPanel from '@/components/page-panel/page-panel.vue'
 import undoRedoHistory from '@/store/plugins/undo-redo/History.js'
+import { getEditorConfigForEditingElement } from '@/utils/element.js'
 import { mapActions, mapState } from 'vuex'
-import Vue from 'vue'
 export default {
   name: 'Editor',
   components: {
@@ -174,19 +174,15 @@ export default {
   },
   methods: {
     ...mapActions('editor', ['elementManager', 'pageManager', 'saveWork', 'createWork']),
-    // 获取组件编辑器配置
-    getEditorConfig(pluginName) {
-      //组件构造器
-      const pluginCtor = Vue.component(pluginName)
-      return new pluginCtor().$options.editorConfig
-    },
+
     /**
      * 复制插件的基本数据至组件树中，即elements
      */
     clone({ name }) {
       console.log(name)
       const zindex = this.elements.length + 1
-      const editorConfig = this.getEditorConfig(name)
+      // 获取component的defaultEditProp
+      const editorConfig = getEditorConfigForEditingElement(name)
       // 添加新元素
       this.elementManager({
         type: 'add',
