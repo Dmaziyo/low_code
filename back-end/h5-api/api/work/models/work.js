@@ -6,12 +6,13 @@
  */
 
 module.exports = {
-  beforeCreate: async (model, attrs, options) => {
-    const defaultPages = [
-      {
-        elements: [],
-      },
-    ];
-    model.set("pages", JSON.stringify(defaultPages));
+  lifecycles: {
+    beforeCreate(data) {
+      data.pages = [
+        {
+          elements: [],
+        },
+      ];
+    },
   },
 };

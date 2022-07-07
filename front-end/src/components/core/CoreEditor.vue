@@ -173,7 +173,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions('editor', ['elementManager', 'pageManager', 'saveWork', 'createWork']),
+    ...mapActions('editor', ['elementManager', 'pageManager', 'saveWork', 'createWork', 'fetchWork']),
 
     /**
      * 复制插件的基本数据至组件树中，即elements
@@ -196,11 +196,13 @@ export default {
       undoRedoHistory.redo()
     }
   },
+  /**
+   * 初始化work,editingPage,并且跳转页面
+   */
   created() {
     let workId = this.$route.query.workId
     if (workId) {
-      // 回调
-      // this.$store.dispatch('getWorkById',workId)
+      this.fetchWork(workId)
     } else {
       this.createWork()
     }

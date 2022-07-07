@@ -32,14 +32,7 @@ const getters = {}
 const actions = {
   ...elementActions,
   ...pageActions,
-  ...workActions,
-  createWork({ commit }, payload) {
-    // 初始化的时候创建作品，并且默认选择第一个Page
-    commit('createWork')
-    commit('pageManager', { type: 'add' })
-    commit('setEditingPage')
-    console.log(payload)
-  }
+  ...workActions
 }
 
 // mutations

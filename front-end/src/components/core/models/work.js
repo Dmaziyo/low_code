@@ -13,8 +13,6 @@ class Work {
     this.title = work.title || '标题'
     this.description = work.description || '描述'
     this.pages = work.pages || []
-    this.type = work.type || 'h5'
-    this.work = work
 
     // this.id = work.id
     // this.key = work.key
