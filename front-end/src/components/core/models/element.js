@@ -1,6 +1,4 @@
-const clone = value => {
-  JSON.parse(JSON.stringify(value))
-}
+const clone = value => JSON.parse(JSON.stringify(value))
 
 const defaultProps = {
   top: 100,
@@ -25,11 +23,12 @@ class Element {
     // 这个this是新建立的对象了
     this.name = ele.name
     this.uuid = +new Date()
-
+    console.log('element元素', ele)
     this.commonStyle = {}
     // 这里优先获取ele.pluginProps实现属性的的复制
-    this.pluginProps = clone(ele.pluginProps) || this.getDefaultPluginProps(ele.editorConfig || {})
-    this.commonStyle = clone(ele.commonStyle) || this.getDefaultCommonStyle()
+
+    this.pluginProps = ele.pluginProps ? clone(ele.pluginProps) : this.getDefaultPluginProps(ele.editorConfig || {})
+    this.commonStyle = ele.commonStyle ? clone(ele.commonStyle) : this.getDefaultCommonStyle()
     // 添加了事件属性
     this.events = []
   }
