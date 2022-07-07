@@ -1,4 +1,4 @@
-// import Work from '@/components/core/models/work.js'
+import Element from '@/components/core/models/element.js'
 import strapi from '../../utils/strapi'
 export const actions = {
   // it's useless for now
@@ -34,9 +34,12 @@ export const actions = {
 
 // mutations
 export const mutations = {
-  setWork(state, payload) {
-    state.work = payload
-    console.log(state.work, 'work!!!')
+  setWork(state, work) {
+    // 确保element model数据完整
+    work.pages.forEach(page => {
+      page.elements = page.elements.map(element => new Element(element))
+    })
+    state.work = work
   },
   // //Create a work
   // createWork(state) {
