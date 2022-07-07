@@ -1,5 +1,6 @@
 import Element from '@/components/core/models/element.js'
 import strapi from '../../utils/strapi'
+import Page from '@/components/core/models/page.js'
 export const actions = {
   // it's useless for now
   // 预览作品
@@ -36,8 +37,10 @@ export const actions = {
 export const mutations = {
   setWork(state, work) {
     // 确保element model数据完整
-    work.pages.forEach(page => {
+    work.pages = work.pages.map(page => {
       page.elements = page.elements.map(element => new Element(element))
+      // 加编号
+      return new Page(page)
     })
     state.work = work
   },

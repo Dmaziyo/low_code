@@ -1,3 +1,7 @@
+const clone = value => {
+  JSON.parse(JSON.stringify(value))
+}
+
 const defaultProps = {
   top: 100,
   left: 100,
@@ -24,8 +28,8 @@ class Element {
 
     this.commonStyle = {}
     // 这里优先获取ele.pluginProps实现属性的的复制
-    this.pluginProps = ele.pluginProps || this.getDefaultPluginProps(ele.editorConfig || {})
-    this.commonStyle = ele.commonStyle || this.getDefaultCommonStyle()
+    this.pluginProps = clone(ele.pluginProps) || this.getDefaultPluginProps(ele.editorConfig || {})
+    this.commonStyle = clone(ele.commonStyle) || this.getDefaultCommonStyle()
     // 添加了事件属性
     this.events = []
   }
@@ -72,9 +76,8 @@ class Element {
   clone() {
     return new Element({
       name: this.name,
-      // 删除是因为这这个是通用配置,而不是单独配置
-      // Deep Clone
-      pluginProps: JSON.parse(JSON.stringify(this.pluginProps)),
+      // 在构建函数内部会进行deep clone
+      pluginProps: this.pluginProps,
       commonStyle: {
         ...this.commonStyle,
         top: this.commonStyle.top + 20,

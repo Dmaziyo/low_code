@@ -31,8 +31,9 @@ export const mutations = {
         break
       }
       case 'delete': {
+        if (state.work.pages.length === 1) return
         const { work, editingPage } = state
-        let index = work.pages.findIndex(e => e.uuid === editingPage.uuid)
+        let index = work.pages.findIndex(page => page.uuid === editingPage.uuid)
         if (index !== -1) {
           let newPages = work.pages.slice()
           newPages.splice(index, 1)
