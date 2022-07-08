@@ -7,9 +7,11 @@ export const actions = {
   previewWork({ commit }, payload = {}) {
     commit('previewWork', payload)
   },
+  // 部署作品
   deployWork({ commit }, payload = {}) {
     commit('previewWork', payload)
   },
+  // 保存作品
   saveWork({ commit, state }, payload = {}) {
     console.log(commit, payload)
     strapi.updateEntry('works', state.work.id, state.work)
