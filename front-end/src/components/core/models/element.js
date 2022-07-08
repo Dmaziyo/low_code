@@ -27,8 +27,9 @@ class Element {
     this.commonStyle = {}
     // 这里优先获取ele.pluginProps实现属性的的复制
 
-    this.pluginProps = ele.pluginProps ? clone(ele.pluginProps) : this.getDefaultPluginProps(ele.editorConfig || {})
-    this.commonStyle = ele.commonStyle ? clone(ele.commonStyle) : this.getDefaultCommonStyle()
+    // 在clone前先判断是否为空
+    this.pluginProps = (typeof ele.pluginProps === 'object' && clone(ele.pluginProps)) || this.getDefaultPluginProps(ele.editorConfig || {})
+    this.commonStyle = (typeof ele.commonStyle === 'object' && clone(ele.commonStyle)) || this.getDefaultCommonStyle()
     // 添加了事件属性
     this.events = []
   }
