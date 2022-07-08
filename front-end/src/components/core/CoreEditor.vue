@@ -180,6 +180,7 @@ export default {
      */
     clone({ name }) {
       console.log(name)
+      // zindex根据elements长度进行增加,这个clone是添加
       const zindex = this.elements.length + 1
       // 获取component的defaultEditProp
       const editorConfig = getEditorConfigForEditingElement(name)

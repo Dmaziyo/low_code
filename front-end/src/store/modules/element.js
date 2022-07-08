@@ -1,5 +1,5 @@
 import Element from '@/components/core/models/element.js'
-import { getEditorConfigForEditingElement } from '../../utils/element'
+import { getEditorConfigForEditingElement, swapZindex } from '../../utils/element'
 //actions
 export const actions = {
   setEditingElement({ commit }, payload) {
@@ -41,28 +41,60 @@ export const mutations = {
   },
   // menuClick管理
   elementManager(state, { type, value }) {
+    // 简化数据名称
+    const { editingPage, editingElement } = state
+    const elements = editingPage.elements
+    const len = elements.length
     switch (type) {
       // 添加元素到当前页面
       case 'add': {
+        value = {
+          ...value,
+          zindex: len + 1
+        }
         const element = new Element(value)
-        state.editingPage.elements.push(element)
+        elements.push(element)
         break
       }
       case 'copy': {
-        // 复制元素到当前页面
-        console.log(state.editingElement)
-        state.editingPage.elements.push(state.editingElement.clone())
+        // 复制元素->当前页面,这个clone是model里面的,进行复制时的zindex相同
+        elements.push(editingElement.clone())
         break
       }
       case 'delete': {
         // find editing element and delete it
-        const { editingPage, editingElement } = state
-        let index = editingPage.elements.findIndex(e => e.uuid === editingElement.uuid)
+
+        let index = elements.findIndex(e => e.uuid === editingElement.uuid)
         if (index !== -1) {
-          let newElements = editingPage.elements.slice()
+          let newElements = elements.slice()
           newElements.splice(index, 1)
           state.editingPage.elements = newElements
         }
+        break
+      }
+      case 'move2Top':
+      case 'move2Bottom': {
+        const index = elements.findIndex(e => e.uuid === editingElement.uuid)
+        elements.splice(index, 1)
+        // 重新排序以及重写zindex
+        const newElements = type === 'move2Top' ? [...elements, editingElement] : [editingElement, ...elements]
+        newElements.forEach((ele, index) => {
+          ele.commonStyle.zindex = index + 1
+        })
+        state.editingElement.elements = newElements
+        break
+      }
+      case 'addZindex':
+      case 'minusZindex': {
+        const maxZindex = len
+        const eleZindex = editingElement.commonStyle.zindex
+        // 判断是否为最大或最小
+        if (eleZindex === maxZindex || eleZindex === 1) return
+
+        const flag = type === 'addZindex' ? 1 : -1
+        // 交换元素来展示成功显示的效果
+        const swapElement = elements.find(ele => ele.commonStyle.zindex === eleZindex + flag)
+        swapZindex(editingElement, swapElement)
         break
       }
       default:

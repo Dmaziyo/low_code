@@ -29,7 +29,11 @@ class Element {
 
     // 在clone前先判断是否为空
     this.pluginProps = (typeof ele.pluginProps === 'object' && clone(ele.pluginProps)) || this.getDefaultPluginProps(ele.editorConfig || {})
-    this.commonStyle = (typeof ele.commonStyle === 'object' && clone(ele.commonStyle)) || this.getDefaultCommonStyle()
+    const commonStyle = (typeof ele.commonStyle === 'object' && clone(ele.commonStyle)) || this.getDefaultCommonStyle()
+    this.commonStyle = {
+      ...commonStyle,
+      zindex: ele.zindex
+    }
     // 添加了事件属性
     this.events = []
   }
@@ -73,8 +77,9 @@ class Element {
   getClass() {}
   getData() {}
   // 复制plugin
-  clone() {
+  clone({ zindex }) {
     return new Element({
+      zindex,
       name: this.name,
       // 在构建函数内部会进行deep clone
       pluginProps: this.pluginProps,

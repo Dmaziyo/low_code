@@ -80,11 +80,11 @@ export default {
       },
       {
         label: '置顶',
-        value: 'bring2Top'
+        value: 'move2Top'
       },
       {
         label: '置底',
-        value: 'bring2Bottom'
+        value: 'move2Bottom'
       },
       {
         label: '上移',
