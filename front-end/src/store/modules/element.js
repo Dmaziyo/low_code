@@ -33,7 +33,6 @@ export const mutations = {
     state.editingElementEditorConfig = payload
   },
   setElementCommonStyle(state, payload) {
-    console.log(state.editingElement)
     state.editingElement.commonStyle = {
       ...state.editingElement.commonStyle,
       ...payload
@@ -48,17 +47,13 @@ export const mutations = {
     switch (type) {
       // 添加元素到当前页面
       case 'add': {
-        value = {
-          ...value,
-          zindex: len + 1
-        }
         const element = new Element(value)
         elements.push(element)
         break
       }
       case 'copy': {
         // 复制元素->当前页面,这个clone是model里面的,进行复制时的zindex相同
-        elements.push(editingElement.clone())
+        elements.push(editingElement.clone(editingElement.commonStyle))
         break
       }
       case 'delete': {
@@ -81,18 +76,18 @@ export const mutations = {
         newElements.forEach((ele, index) => {
           ele.commonStyle.zindex = index + 1
         })
-        state.editingElement.elements = newElements
+        state.editingPage.elements = newElements
         break
       }
       case 'addZindex':
       case 'minusZindex': {
         const maxZindex = len
         const eleZindex = editingElement.commonStyle.zindex
-        // 判断是否为最大或最小
-        if (eleZindex === maxZindex || eleZindex === 1) return
-
         const flag = type === 'addZindex' ? 1 : -1
-        // 交换元素来展示成功显示的效果
+
+        // 判断能否进行位移
+        if (flag === 1 ? eleZindex === maxZindex : eleZindex === 1) return
+        // 与上一级或者下一级元素进行交换
         const swapElement = elements.find(ele => ele.commonStyle.zindex === eleZindex + flag)
         swapZindex(editingElement, swapElement)
         break

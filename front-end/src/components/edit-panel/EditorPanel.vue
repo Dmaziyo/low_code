@@ -28,7 +28,6 @@ export default {
       <a-form ref="form" label-width="100px" id="props-edit-form" size="mini" label-position="left">
         {Object.keys(propsConfig).map(propKey => {
           const item = propsConfig[propKey]
-          console.log(item.type)
           const data = {
             style: { width: '100%' },
             props: {

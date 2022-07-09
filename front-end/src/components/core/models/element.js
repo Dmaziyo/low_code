@@ -29,17 +29,14 @@ class Element {
 
     // 在clone前先判断是否为空
     this.pluginProps = (typeof ele.pluginProps === 'object' && clone(ele.pluginProps)) || this.getDefaultPluginProps(ele.editorConfig || {})
-    const commonStyle = (typeof ele.commonStyle === 'object' && clone(ele.commonStyle)) || this.getDefaultCommonStyle()
-    this.commonStyle = {
-      ...commonStyle,
-      zindex: ele.zindex
-    }
+    this.commonStyle = (typeof ele.commonStyle === 'object' && clone(ele.commonStyle)) || this.getDefaultCommonStyle(ele)
+
     // 添加了事件属性
     this.events = []
   }
-  // 获取默认通用样式
-  getDefaultCommonStyle() {
-    return { ...defaultProps }
+  // 获取默认通用样式,以及初始化传的zindex
+  getDefaultCommonStyle({ zindex }) {
+    return { ...defaultProps, zindex }
   }
   // 获取默认插件样式
   getDefaultPluginProps(editorConfig) {
@@ -70,6 +67,7 @@ class Element {
       borderWidth: `${pluginProps.borderWidth || commonStyle.borderWidth}px`,
       borderRadius: `${pluginProps.borderRadius || commonStyle.borderRadius}px`,
       textAlign: pluginProps.textAlign || commonStyle.textAlign,
+      zIndex: pluginProps.zindex || commonStyle.zindex,
       position
     }
     return style
@@ -79,14 +77,14 @@ class Element {
   // 复制plugin
   clone({ zindex }) {
     return new Element({
-      zindex,
       name: this.name,
       // 在构建函数内部会进行deep clone
       pluginProps: this.pluginProps,
       commonStyle: {
         ...this.commonStyle,
         top: this.commonStyle.top + 20,
-        left: this.commonStyle.left + 20
+        left: this.commonStyle.left + 20,
+        zindex
       }
     })
   }
