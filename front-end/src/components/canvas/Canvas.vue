@@ -10,7 +10,7 @@
       v-for="(element,index) in elements"
       :key="index"
       :element="element"
-      :style="element.getStyle('absolute')"
+      :style="element.getStyle({position:'absolute'})"
       :defaultPosition="element.commonStyle"
       :active="editingElement===element"
       :handleElementMoveProp="handleElementMove"
@@ -26,7 +26,7 @@
             element.pluginProps.text=value
           }
         }"
-        v-bind="element.pluginProps"
+        v-bind="element.getProps()"
       ></component>
     </Shape>
     <div

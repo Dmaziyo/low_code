@@ -6,6 +6,7 @@ import LbpButton from '@/components/plugins/LbpButton.vue'
 import CoreEditor from '@/components/core/CoreEditor.vue'
 import LbpPicture from '@/components/plugins/LbpPicture.vue'
 import LbpText from '@/components/plugins/LbpText.vue'
+import LbpFormInput from '@/components/plugins/LbpFormInput.vue'
 // 用于全局注册
 const PluginList = [
   {
@@ -39,23 +40,20 @@ const PluginList = [
       }
     ]
   },
+  // 添加Form组件
   {
     title: '表单',
     icon: 'wpforms',
     visible: true,
+    component: LbpFormInput,
+    name: 'lbp-form-input',
     children: [
       {
-        title: '按钮',
+        title: '输入框',
         icon: 'hand-pointer-o',
+        component: LbpFormInput,
         visible: true,
-        name: 'lbp-button'
-      },
-      {
-        title: '图片',
-        icon: 'image',
-        component: LbpPicture,
-        visible: true,
-        name: 'lbp-picture'
+        name: 'lbp-form-input'
       }
     ]
   },

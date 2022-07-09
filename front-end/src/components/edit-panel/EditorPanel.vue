@@ -30,6 +30,7 @@ export default {
           const item = propsConfig[propKey]
           const data = {
             style: { width: '100%' },
+            // 将editorProp和pluginProps进行双向绑定
             props: {
               ...item.prop,
               value: editingElement.pluginProps[propKey] || item.defaultPropValue

@@ -6,8 +6,8 @@
       v-for="(element,index) in elements"
       :key="index"
       :is="element.name"
-      :style="element.getStyle('absolute')"
-      v-bind="element.pluginProps"
+      :style="element.getStyle({position:'absolute'})"
+      v-bind="element.getProps({mode:'preview'})"
     ></component>
   </div>
 </template>

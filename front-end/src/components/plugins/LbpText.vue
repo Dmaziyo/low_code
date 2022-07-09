@@ -38,6 +38,7 @@ export default {
             blur() {
               self.canEdit = false
             },
+            // 元素自身发生改变时，emit给父组件
             input() {
               self.$emit('input', {
                 value: self.$refs.editableText.innerHTML,

@@ -51,8 +51,8 @@ class Element {
     })
     return pluginProps
   }
-
-  getStyle(position = 'static') {
+  // 优化传参格式
+  getStyle({ position = 'static' }) {
     const pluginProps = this.pluginProps
     const commonStyle = this.commonStyle
     let style = {
@@ -71,6 +71,14 @@ class Element {
       position
     }
     return style
+  }
+  // 根据edit&preview来确定input是否可以使用
+  getProps({ mode = 'edit' } = {}) {
+    console.log(this.pluginProps.placeholder)
+    return {
+      ...this.pluginProps,
+      disabled: !(this.name === 'lbp-form-input' && mode === 'edit')
+    }
   }
   getClass() {}
   getData() {}
