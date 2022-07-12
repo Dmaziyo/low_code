@@ -60,7 +60,7 @@
         <plugin-list-panel
           v-if="this.sidebarMenus[0].value===this.activeMenuKey"
           @Eclone="clone"
-          :visible-plugin-list="visiblePluginList"
+          :plugins-list="pluginsList"
         ></plugin-list-panel>
         <page-list-panel v-else-if="this.sidebarMenus[1].value===this.activeMenuKey"></page-list-panel>
       </a-layout-sider>
@@ -179,7 +179,7 @@ export default {
      * 复制插件的基本数据至组件树中，即elements
      */
     clone({ name }) {
-      console.log(name)
+      console.log(name, '1111111111111111111')
       // zindex根据elements长度进行增加,这个clone是添加
       const zindex = this.elements.length + 1
       // 获取component的defaultEditProp

@@ -4,7 +4,7 @@
 import ShortcutButton from '@/components/shortcut-panel/ShortCutButton.vue'
 export default {
   props: {
-    visiblePluginList: {
+    pluginsList: {
       type: Array,
       default: () => []
     }
@@ -15,39 +15,39 @@ export default {
   methods: {
     Eclone(item) {
       this.$emit('Eclone', item)
-    },
-    // 渲染
-    renderPluginShortcut(group) {
-      return group.children.length === 1 ? this.renderSinglePluginShortcut(group) : this.renderMultiPluginShortCuts(group)
-    },
-    // 渲染单组件group
-    renderSinglePluginShortcut({ children }) {
-      const [plugin] = children
-      return <ShortcutButton faIcon={plugin.icon} title={plugin.title} clickFn={this.Eclone.bind(this, plugin)}></ShortcutButton>
-    },
-    renderMultiPluginShortCuts(group) {
-      const plugins = group.children
-      return (
-        <a-popover placement="bottom" trigger="hover">
-          <a-row gutter={20} style={{ width: '400px' }} slot="content">
-            {plugins.sort().map(item => (
-              <a-col span={6}>
-                <ShortcutButton faIcon={item.icon} title={item.title} clickFn={this.Eclone.bind(this, item)}></ShortcutButton>
-              </a-col>
-            ))}
-          </a-row>
-
-          <ShortcutButton faIcon={group.icon} title={group.title}></ShortcutButton>
-        </a-popover>
-      )
     }
+    // 渲染
+    // renderPluginShortcut(group) {
+    //   return group.children.length === 1 ? this.renderSinglePluginShortcut(group) : this.renderMultiPluginShortCuts(group)
+    // },
+    //  渲染单组件group
+    // renderSinglePluginShortcut({ children }) {
+    //   const [plugin] = children
+    //   return <ShortcutButton faIcon={plugin.icon} title={plugin.title} clickFn={this.Eclone.bind(this, plugin)}></ShortcutButton>
+    // },
+    // renderMultiPluginShortCuts(group) {
+    //   const plugins = group.children
+    //   return (
+    //     <a-popover placement="bottom" trigger="hover">
+    //       <a-row gutter={20} style={{ width: '400px' }} slot="content">
+    //         {plugins.sort().map(item => (
+    //           <a-col span={6}>
+    //             <ShortcutButton faIcon={item.icon} title={item.title} clickFn={this.Eclone.bind(this, item)}></ShortcutButton>
+    //           </a-col>
+    //         ))}
+    //       </a-row>
+
+    //       <ShortcutButton faIcon={group.icon} title={group.title}></ShortcutButton>
+    //     </a-popover>
+    //   )
+    // }
   },
   render() {
     return (
       <a-row gutter={20}>
-        {this.visiblePluginList.sort().map(group => (
+        {this.pluginsList.sort().map(plugin => (
           <a-col span={12} style="margin-top:10px">
-            {this.renderPluginShortcut(group)}
+            <ShortcutButton clickFn={this.Eclone.bind(this, plugin)} title={plugin.title} faIcon={plugin.icon} />
           </a-col>
         ))}
       </a-row>
