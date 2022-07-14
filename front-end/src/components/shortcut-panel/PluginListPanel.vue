@@ -45,7 +45,7 @@ export default {
   render() {
     return (
       <a-row gutter={20}>
-        {this.pluginsList.sort().map(plugin => (
+        {this.pluginsList.map(plugin => (
           <a-col span={12} style="margin-top:10px">
             <ShortcutButton clickFn={this.Eclone.bind(this, plugin)} title={plugin.title} faIcon={plugin.icon} />
           </a-col>
