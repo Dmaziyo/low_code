@@ -27,6 +27,7 @@ export const actions = {
   },
   // 获取作品
   fetchWork({ commit }, workId) {
+    console.log('获取作品', workId)
     strapi.getEntry('works', workId).then(entry => {
       console.log(entry)
       commit('setWork', entry)
